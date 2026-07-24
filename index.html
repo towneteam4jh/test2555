@@ -243,12 +243,13 @@ td.muted{color:var(--text2);font-size:12px}
     <button class="btn btn-primary" onclick="addException()">Save Exception</button>
   </div>
   <div class="card" style="padding:0;overflow:hidden">
-    <div style="padding:18px 20px 14px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border)">
+    <div style="padding:18px 20px 14px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);flex-wrap:wrap;gap:10px">
       <div style="font-size:15px;font-weight:600">Exception Log</div>
+      <div style="display:flex;gap:8px;align-items:center"><input type="text" id="searchExceptions" placeholder="Search name..." oninput="renderExceptions()" style="padding:7px 12px;border:1px solid var(--border);border-radius:8px;font-size:13px;outline:none;width:180px">
       <div style="display:flex;gap:8px">
         <button class="btn btn-ghost btn-sm" onclick="exportExceptionsExcel()">📊 Excel</button>
         <button class="btn btn-ghost btn-sm" onclick="exportExceptionsPDF()">📄 PDF</button>
-      </div>
+      </div></div>
     </div>
     <div class="tbl-wrap" style="border:none;border-radius:0">
       <table>
@@ -310,12 +311,13 @@ td.muted{color:var(--text2);font-size:12px}
     </div>
   </div>
   <div class="card" style="padding:0;overflow:hidden">
-    <div style="padding:18px 20px 14px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border)">
+    <div style="padding:18px 20px 14px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);flex-wrap:wrap;gap:10px">
       <div style="font-size:15px;font-weight:600">CA History</div>
+      <div style="display:flex;gap:8px;align-items:center"><input type="text" id="searchCALog" placeholder="Search name..." oninput="renderCALog()" style="padding:7px 12px;border:1px solid var(--border);border-radius:8px;font-size:13px;outline:none;width:180px">
       <div style="display:flex;gap:8px">
         <button class="btn btn-ghost btn-sm" onclick="exportCAExcel()">📊 Excel</button>
         <button class="btn btn-ghost btn-sm" onclick="exportCAPDF()">📄 PDF</button>
-      </div>
+      </div></div>
     </div>
     <div class="tbl-wrap" style="border:none;border-radius:0">
       <table>
@@ -355,12 +357,13 @@ td.muted{color:var(--text2);font-size:12px}
     <button class="btn btn-orange" onclick="logVerbal()">Log Verbal Warning</button>
   </div>
   <div class="card" style="padding:0;overflow:hidden">
-    <div style="padding:18px 20px 14px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border)">
+    <div style="padding:18px 20px 14px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);flex-wrap:wrap;gap:10px">
       <div style="font-size:15px;font-weight:600">Verbal Warning Log</div>
+      <div style="display:flex;gap:8px;align-items:center"><input type="text" id="searchVerbals" placeholder="Search name..." oninput="renderVerbals()" style="padding:7px 12px;border:1px solid var(--border);border-radius:8px;font-size:13px;outline:none;width:180px">
       <div style="display:flex;gap:8px">
         <button class="btn btn-ghost btn-sm" onclick="exportVerbalsExcel()">📊 Excel</button>
         <button class="btn btn-ghost btn-sm" onclick="exportVerbalsPDF()">📄 PDF</button>
-      </div>
+      </div></div>
     </div>
     <div class="tbl-wrap" style="border:none;border-radius:0">
       <table>
@@ -386,9 +389,10 @@ td.muted{color:var(--text2);font-size:12px}
   </div>
   <div class="card" style="padding:0;overflow:hidden">
     <div style="padding:18px 20px 14px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border)">
-      <div>
+      <div style="display:flex;flex-direction:column;gap:8px">
         <div style="font-size:15px;font-weight:600">Call-Out Log</div>
-        <div style="font-size:12px;color:var(--text2);margin-top:2px" id="weekly-count"></div>
+        <div style="font-size:12px;color:var(--text2)" id="weekly-count"></div>
+        <input type="text" id="searchWeekly" placeholder="Search name..." oninput="renderWeekly()" style="padding:7px 12px;border:1px solid var(--border);border-radius:8px;font-size:13px;outline:none;width:200px">
       </div>
       <div style="display:flex;gap:8px">
         <button class="btn btn-ghost btn-sm" onclick="exportWeeklyExcel()">📊 Excel</button>
@@ -434,7 +438,7 @@ td.muted{color:var(--text2);font-size:12px}
   <div class="doo-section">
     <div class="doo-section-title">🟡 Verbal Needed — Watch Closely</div>
     <div class="tbl-wrap"><table>
-      <thead><tr><th>Associate</th><th>Role</th><th>Call-Outs</th><th>Action</th></tr></thead>
+      <thead><tr><th>Associate</th><th>Role</th><th>Call-Outs</th><th>Verbal Given</th><th>Action</th></tr></thead>
       <tbody id="doo-verbal-tbody"></tbody>
     </table></div>
   </div>
@@ -504,7 +508,7 @@ td.muted{color:var(--text2);font-size:12px}
       <textarea id="term-notes" placeholder="Optional notes..."></textarea>
     </div>
     <div style="background:var(--red-lt);border-radius:8px;padding:12px;font-size:12px;color:var(--red);margin-bottom:16px">
-      <strong>This action cannot be undone.</strong> The associate will be removed from the active roster but all records will be preserved in the History tab. Contact Rachel or Bryant before proceeding.
+      <strong>This action cannot be undone.</strong> The associate will be removed from the active roster but all records will be preserved in the History tab.
     </div>
     <div class="modal-footer">
       <button class="btn btn-ghost" onclick="closeModal('terminateModal')">Cancel</button>
@@ -677,8 +681,18 @@ function saveSheetUrl() {
 // ══════════════════════════════════════════════
 function switchUser(val) {
   if(val==='rachel') {
-    const pin=prompt('Enter admin PIN:');
-    if(pin!==ADMIN_PIN){ showToast('Incorrect PIN. Access denied.','error'); document.getElementById('userSelect').value=''; return; }
+    // Show masked PIN input
+    const pinDiv = document.createElement('div');
+    pinDiv.style.cssText = 'position:fixed;inset:0;background:rgba(15,30,46,.5);z-index:500;display:flex;align-items:center;justify-content:center';
+    pinDiv.innerHTML = '<div style="background:#fff;border-radius:16px;padding:28px;width:320px;box-shadow:0 8px 32px rgba(15,30,46,0.14)"><div style="font-size:16px;font-weight:600;margin-bottom:6px">Admin Access</div><div style="font-size:12px;color:#546e7a;margin-bottom:18px">Enter your admin PIN to continue</div><input type="password" id="pin-input" style="width:100%;padding:10px 12px;border:1px solid #dde3e8;border-radius:8px;font-size:18px;letter-spacing:8px;text-align:center;outline:none;font-family:monospace" maxlength="4" placeholder="••••"><div style="display:flex;gap:10px;margin-top:18px;justify-content:flex-end"><button onclick="document.body.removeChild(document.getElementById('pin-overlay'));document.getElementById('userSelect').value=''" style="padding:9px 18px;border-radius:8px;border:1px solid #dde3e8;background:none;cursor:pointer;font-size:13px">Cancel</button><button onclick="checkPin()" style="padding:9px 18px;border-radius:8px;border:none;background:#2d6ea8;color:#fff;cursor:pointer;font-size:13px;font-weight:600">Enter</button></div></div>';
+    pinDiv.id='pin-overlay';
+    document.body.appendChild(pinDiv);
+    document.getElementById('pin-input').focus();
+    document.getElementById('pin-input').addEventListener('keydown',e=>{if(e.key==='Enter')checkPin();});
+    window.checkPin=function(){
+      const pin=document.getElementById('pin-input').value;
+    document.body.removeChild(document.getElementById('pin-overlay'));
+      if(pin!==ADMIN_PIN){ showToast('Incorrect PIN. Access denied.','error'); document.getElementById('userSelect').value=''; return; }
   }
   currentUser=val;
   document.getElementById('tab-weekly').style.display=val==='rachel'?'':'none';
@@ -750,20 +764,32 @@ function getStats(name) {
   }
 
   // Determine window based on CA history
+  // CRITICAL: Rolling window counts call-outs within the window FROM the CA date (or today if no CA)
   let activeCount=0, windowUsed=WINDOW_NO_CA, windowStart=null, currentStage='none';
 
   if(lastFinal) {
-    // After Final: 30-day window, 1 more = term
+    // After Final: count call-outs AFTER the Final CA date AND within 30 days of Final CA date
     windowUsed=WINDOW_FINAL; windowStart=lastFinal.date; currentStage='final';
-    activeCount=allCounted.filter(c=>c.date>lastFinal.date&&(now-new Date(c.date))/86400000<=WINDOW_FINAL).length;
+    const finalDate=new Date(lastFinal.date);
+    const finalWindowEnd=new Date(finalDate); finalWindowEnd.setDate(finalDate.getDate()+WINDOW_FINAL);
+    activeCount=allCounted.filter(c=>{
+      const d=new Date(c.date);
+      return d>finalDate && d<=finalWindowEnd;
+    }).length;
   } else if(lastWritten) {
-    // After Written: 60-day window, 3 more = final
+    // After Written: count call-outs AFTER the Written CA date AND within 60 days of Written CA date
     windowUsed=WINDOW_WRITTEN; windowStart=lastWritten.date; currentStage='written';
-    activeCount=allCounted.filter(c=>c.date>lastWritten.date&&(now-new Date(c.date))/86400000<=WINDOW_WRITTEN).length;
+    const writtenDate=new Date(lastWritten.date);
+    const writtenWindowEnd=new Date(writtenDate); writtenWindowEnd.setDate(writtenDate.getDate()+WINDOW_WRITTEN);
+    activeCount=allCounted.filter(c=>{
+      const d=new Date(c.date);
+      return d>writtenDate && d<=writtenWindowEnd;
+    }).length;
   } else {
-    // No CA: 90-day window, 3 = written
+    // No CA: count call-outs within the last 90 days from TODAY (rolling)
     windowUsed=WINDOW_NO_CA; currentStage='none';
-    activeCount=allCounted.filter(c=>(now-new Date(c.date))/86400000<=WINDOW_NO_CA).length;
+    const ninetyDaysAgo=new Date(now); ninetyDaysAgo.setDate(now.getDate()-WINDOW_NO_CA);
+    activeCount=allCounted.filter(c=>new Date(c.date)>=ninetyDaysAgo).length;
   }
 
   // Check consecutive NCNS (job abandonment)
@@ -786,7 +812,7 @@ function getStats(name) {
 
   const lastCAEntry=personCAs.filter(c=>c.level!=='Term').slice(-1)[0];
 
-  return {name,role,total:allCounted.length,activeCount,status,nextAction,writtenCount,finalCount,termCount,lastCA:lastCAEntry?.date||null,currentStage,windowUsed,cleanSlate:false};
+  return {name,role,total:activeCount,allTime:allCounted.length,activeCount,status,nextAction,writtenCount,finalCount,termCount,lastCA:lastCAEntry?.date||null,currentStage,windowUsed,cleanSlate:false};
 }
 
 function getAllNames() {
@@ -850,14 +876,15 @@ function renderSummary() {
       s.status==='VERBAL'?`<span class="status-verbal">${s.nextAction}</span>`:
       s.status==='CLEAN_SLATE'?`<span style="color:var(--teal);font-weight:600;font-size:12px">✨ Clean Slate Reset</span>`:
       s.status==='TERMED'?`<span style="color:var(--text2);font-size:12px">Termed</span>`:'';
-    const logBtn=s.status==='VERBAL'?`<button class="btn btn-sm btn-orange" onclick="quickLogVerbal('${s.name}')">Log Verbal</button>`:
+    const actionBtn=s.status==='VERBAL'?`<button class="btn btn-sm btn-orange" onclick="quickLogVerbal('${s.name}')">Log Verbal</button>`:
       s.status==='ISSUE_WRITTEN'?`<button class="btn btn-sm btn-danger" onclick="quickLogCA('${s.name}','Written')">Log Written CA</button>`:
       s.status==='ISSUE_FINAL'?`<button class="btn btn-sm btn-danger" onclick="quickLogCA('${s.name}','Final')">Log Final CA</button>`:
       s.status==='TERM_REQUIRED'||s.status==='ABANDONMENT'?`<button class="btn btn-sm btn-danger" onclick="openTerminateModal('${s.name}')">Terminate</button>`:'';
+    const logBtn=`${actionBtn} <button class="btn btn-sm btn-ghost" style="font-size:11px;padding:3px 8px;margin-left:2px" onclick="openTerminateModal('${s.name}')" title="Terminate or resign this associate">⬜ Term</button>`;
     return `<tr class="${rowClass}">
       <td class="name">${s.name}</td>
       <td><span class="role">${s.role}</span></td>
-      <td class="center">${s.total}</td>
+      <td class="center" title="Active: ${s.activeCount} | All time: ${s.allTime||s.total}">${s.activeCount} <span style="font-size:10px;color:var(--text2)">(${s.allTime||s.total} total)</span></td>
       <td class="center muted">${s.lastCA||''}</td>
       <td class="center">${s.writtenCount>0?`<span class="badge badge-blue">${s.writtenCount}</span>`:''}</td>
       <td class="center">${s.finalCount>0?`<span class="badge badge-orange">${s.finalCount}</span>`:''}</td>
@@ -892,7 +919,9 @@ function toggleExcStatus(i) {
 }
 function renderExceptions() {
   updateDatalist();
-  document.getElementById('exc-tbody').innerHTML=exceptions.length?exceptions.map((e,i)=>`
+  const excSearch=(document.getElementById('searchExceptions')?.value||'').toLowerCase();
+  const filteredExc=exceptions.filter(e=>!excSearch||e.name.toLowerCase().includes(excSearch));
+  document.getElementById('exc-tbody').innerHTML=filteredExc.length?filteredExc.map((e,i)=>`
     <tr class="${e.status==='Active'?'row-green':'row-red'}">
       <td>${e.date}</td><td class="name">${e.name}</td><td>${e.week||''}</td>
       <td><span class="badge badge-blue">${e.decision}</span></td>
@@ -947,8 +976,10 @@ function updateCALevelDropdown(nameVal) {
 }
 function renderCALog() {
   updateDatalist();
+  const caSearch=(document.getElementById('searchCALog')?.value||'').toLowerCase();
+  const filteredCA=caLog.filter(c=>!caSearch||c.name.toLowerCase().includes(caSearch));
   const lb=l=>l==='Written'?`<span class="badge badge-blue">Written</span>`:l==='Final'?`<span class="badge badge-orange">Final</span>`:`<span class="badge badge-red">Term</span>`;
-  document.getElementById('ca-tbody').innerHTML=caLog.length?caLog.map((c,i)=>`
+  document.getElementById('ca-tbody').innerHTML=filteredCA.length?filteredCA.map((c,i)=>`
     <tr>
       <td>${c.date}</td><td class="name">${c.name}</td>
       <td>${lb(c.level)}</td>
@@ -983,7 +1014,9 @@ function quickLogVerbal(name) {
 }
 function renderVerbals() {
   updateDatalist();
-  document.getElementById('verbal-tbody').innerHTML=verbals.length?verbals.map((v,i)=>`
+  const verbalSearch=(document.getElementById('searchVerbals')?.value||'').toLowerCase();
+  const filteredVerbals=verbals.filter(v=>!verbalSearch||v.name.toLowerCase().includes(verbalSearch));
+  document.getElementById('verbal-tbody').innerHTML=filteredVerbals.length?filteredVerbals.map((v,i)=>`
     <tr>
       <td>${v.date}</td><td class="name">${v.name}</td>
       <td>${v.manager||''}</td>
@@ -997,7 +1030,8 @@ function renderVerbals() {
 // WEEKLY DATA
 // ══════════════════════════════════════════════
 function renderWeekly() {
-  const sorted=[...callouts].map((c,i)=>({...c,_idx:i})).sort((a,b)=>b.date.localeCompare(a.date));
+  const weeklySearch=(document.getElementById('searchWeekly')?.value||'').toLowerCase();
+  const sorted=[...callouts].filter(c=>!weeklySearch||c.name.toLowerCase().includes(weeklySearch)).map((c,i)=>({...c,_idx:callouts.indexOf(c)})).sort((a,b)=>b.date.localeCompare(a.date));
   document.getElementById('weekly-count').textContent=`${callouts.length} total records`;
   document.getElementById('weekly-tbody').innerHTML=sorted.map(c=>`
     <tr class="${c.type==='No Show No Call'?'row-red':''}">
@@ -1135,12 +1169,11 @@ function renderDOO() {
       <td style="font-size:12px;color:var(--text2)">${s.status==='ISSUE_FINAL'?'Issue Final Warning within 3 business days':'Issue Written Warning within 3 business days'}</td>
     </tr>`).join(''):`<tr><td colspan="5"><div class="empty"><div class="empty-icon">✓</div><p>No CA action needed right now</p></div></td></tr>`;
 
-  document.getElementById('doo-verbal-tbody').innerHTML=verbalNeeded.length?verbalNeeded.map(s=>`
-    <tr class="row-yellow">
-      <td class="name">${s.name}</td><td><span class="role">${s.role}</span></td>
-      <td class="center" style="font-weight:600">${s.activeCount}</td>
-      <td style="font-size:12px;color:var(--orange);font-weight:600">Verbal conversation required within 3 business days</td>
-    </tr>`).join(''):`<tr><td colspan="4"><div class="empty"><div class="empty-icon">✓</div><p>No verbal warnings needed</p></div></td></tr>`;
+  document.getElementById('doo-verbal-tbody').innerHTML=verbalNeeded.length?verbalNeeded.map(s=>{
+    const verbalEntry=verbals.filter(v=>v.name.toLowerCase()===s.name.toLowerCase()).sort((a,b)=>b.date.localeCompare(a.date))[0];
+    const verbalGiven=verbalEntry?`<span style="color:var(--teal);font-weight:600">✓ ${verbalEntry.date}</span>`:`<span style="color:var(--red);font-weight:600">Not yet</span>`;
+    return `<tr class="row-yellow"><td class="name">${s.name}</td><td><span class="role">${s.role}</span></td><td class="center" style="font-weight:600">${s.activeCount}</td><td>${verbalGiven}</td><td style="font-size:12px;color:var(--orange);font-weight:600">Verbal required within 3 business days</td></tr>`;
+  }).join(''):`<tr><td colspan="4"><div class="empty"><div class="empty-icon">✓</div><p>No verbal warnings needed</p></div></td></tr>`;
 
   const levels=['Written','Final','Term'];
   document.getElementById('doo-pipeline-tbody').innerHTML=levels.map(l=>{
@@ -1152,7 +1185,7 @@ function renderDOO() {
 
   const roles={};
   stats.forEach(s=>{
-    if(!s.role) return;
+    if(!s.role||s.role==='role') return;
     if(!roles[s.role]) roles[s.role]={count:0,total:0,flagged:0};
     roles[s.role].count++;roles[s.role].total+=s.total;
     if(s.status==='ISSUE_WRITTEN'||s.status==='ISSUE_FINAL'||s.status==='TERM_REQUIRED') roles[s.role].flagged++;
@@ -1173,13 +1206,14 @@ function renderHistory() {
     if(statusF!=='all'&&h.status!==statusF) return false;
     return true;
   });
-  document.getElementById('history-tbody').innerHTML=filtered.length?filtered.map(h=>`
+  document.getElementById('history-tbody').innerHTML=filtered.length?filtered.map((h,i)=>`
     <tr>
       <td class="name">${h.name}</td>
-      <td><span class="badge ${h.status==='Termed'?'badge-red':h.status==='Clean Slate'?'badge-green':'badge-gray'}">${h.status}</span></td>
+      <td><span class="badge ${h.status==='Termed'?'badge-red':h.status==='Clean Slate'?'badge-green':h.status==='Resigned'?'badge-gray':'badge-blue'}">${h.status}</span></td>
       <td>${h.terminationDate||''}</td>
       <td style="font-size:12px">${h.reason||''}</td>
       <td class="muted">${h.terminatedBy||''}</td>
+      <td>${currentUser==='rachel'&&h.status==='Termed'?`<button class="btn btn-ghost btn-sm" style="color:var(--teal);border-color:var(--teal)" onclick="reverseTermination(${i},'${h.name}')">↩ Reverse</button>`:''}</td>
     </tr>`).join(''):`<tr><td colspan="5"><div class="empty"><div class="empty-icon">📁</div><p>No historical records yet</p></div></td></tr>`;
 }
 
@@ -1218,6 +1252,18 @@ async function confirmTerminate() {
   renderSummary(); renderHistory();
   showToast(`${name} has been terminated and moved to History`,'success');
   pendingTerminate=null;
+}
+
+// ══════════════════════════════════════════════
+// REVERSE TERMINATION
+// ══════════════════════════════════════════════
+async function reverseTermination(idx, name) {
+  if(!confirm(`Reverse termination for ${name}? They will be added back to the active roster.`)) return;
+  history.splice(idx, 1);
+  save();
+  if(syncEnabled) await gsDelete('history', history[idx]?.id);
+  renderHistory(); renderSummary();
+  showToast(`${name} has been reinstated to the active roster`, 'success');
 }
 
 // ══════════════════════════════════════════════
