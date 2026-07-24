@@ -681,24 +681,41 @@ function saveSheetUrl() {
 // ══════════════════════════════════════════════
 function switchUser(val) {
   if(val==='rachel') {
-    // Show masked PIN input
-    const pinDiv = document.createElement('div');
-    pinDiv.style.cssText = 'position:fixed;inset:0;background:rgba(15,30,46,.5);z-index:500;display:flex;align-items:center;justify-content:center';
-    pinDiv.innerHTML = '<div style="background:#fff;border-radius:16px;padding:28px;width:320px;box-shadow:0 8px 32px rgba(15,30,46,0.14)"><div style="font-size:16px;font-weight:600;margin-bottom:6px">Admin Access</div><div style="font-size:12px;color:#546e7a;margin-bottom:18px">Enter your admin PIN to continue</div><input type="password" id="pin-input" style="width:100%;padding:10px 12px;border:1px solid #dde3e8;border-radius:8px;font-size:18px;letter-spacing:8px;text-align:center;outline:none;font-family:monospace" maxlength="4" placeholder="••••"><div style="display:flex;gap:10px;margin-top:18px;justify-content:flex-end"><button onclick="document.body.removeChild(document.getElementById('pin-overlay'));document.getElementById('userSelect').value=''" style="padding:9px 18px;border-radius:8px;border:1px solid #dde3e8;background:none;cursor:pointer;font-size:13px">Cancel</button><button onclick="checkPin()" style="padding:9px 18px;border-radius:8px;border:none;background:#2d6ea8;color:#fff;cursor:pointer;font-size:13px;font-weight:600">Enter</button></div></div>';
-    pinDiv.id='pin-overlay';
-    document.body.appendChild(pinDiv);
-    document.getElementById('pin-input').focus();
-    document.getElementById('pin-input').addEventListener('keydown',e=>{if(e.key==='Enter')checkPin();});
-    window.checkPin=function(){
-      const pin=document.getElementById('pin-input').value;
-    document.body.removeChild(document.getElementById('pin-overlay'));
-      if(pin!==ADMIN_PIN){ showToast('Incorrect PIN. Access denied.','error'); document.getElementById('userSelect').value=''; return; }
+    const overlay = document.createElement('div');
+    overlay.id = 'pin-overlay';
+    overlay.style.cssText = 'position:fixed;inset:0;background:rgba(15,30,46,.6);z-index:9999;display:flex;align-items:center;justify-content:center';
+    const box = document.createElement('div');
+    box.style.cssText = 'background:#fff;border-radius:16px;padding:32px;width:340px;box-shadow:0 8px 32px rgba(15,30,46,0.2)';
+    box.innerHTML = '<div style="font-size:18px;font-weight:600;color:#0f1e2e;margin-bottom:6px">Admin Access</div><div style="font-size:13px;color:#546e7a;margin-bottom:20px">Enter your admin PIN to continue</div><input type="password" id="pin-input" maxlength="4" autocomplete="off" style="width:100%;padding:12px;border:2px solid #dde3e8;border-radius:8px;font-size:22px;letter-spacing:10px;text-align:center;outline:none;font-family:monospace" placeholder="****"><div id="pin-error" style="color:#c0392b;font-size:12px;margin-top:8px;display:none">Incorrect PIN. Please try again.</div><div style="display:flex;gap:10px;margin-top:20px;justify-content:flex-end"><button id="pin-cancel" style="padding:10px 20px;border-radius:8px;border:1px solid #dde3e8;background:none;cursor:pointer;font-size:13px;font-weight:500">Cancel</button><button id="pin-submit" style="padding:10px 20px;border-radius:8px;border:none;background:#2d6ea8;color:#fff;cursor:pointer;font-size:13px;font-weight:600">Enter</button></div>';
+    overlay.appendChild(box);
+    document.body.appendChild(overlay);
+    var pinInput = document.getElementById('pin-input');
+    pinInput.focus();
+    function removeOverlay(){ var o=document.getElementById('pin-overlay'); if(o) document.body.removeChild(o); }
+    function submitPin(){
+      var pin = document.getElementById('pin-input').value;
+      if(pin === ADMIN_PIN){
+        removeOverlay();
+        currentUser = 'rachel';
+        document.getElementById('tab-weekly').style.display = '';
+        renderAll();
+      } else {
+        document.getElementById('pin-error').style.display = 'block';
+        document.getElementById('pin-input').value = '';
+        document.getElementById('pin-input').focus();
+      }
+    }
+    document.getElementById('pin-cancel').onclick = function(){ removeOverlay(); document.getElementById('userSelect').value=''; };
+    document.getElementById('pin-submit').onclick = submitPin;
+    pinInput.addEventListener('keydown', function(e){ if(e.key==='Enter') submitPin(); });
+    return;
   }
-  currentUser=val;
-  document.getElementById('tab-weekly').style.display=val==='rachel'?'':'none';
-  if(val!=='rachel'&&document.getElementById('view-weekly').classList.contains('active')) switchView('summary');
+  currentUser = val;
+  document.getElementById('tab-weekly').style.display = val==='rachel' ? '' : 'none';
+  if(val!=='rachel' && document.getElementById('view-weekly').classList.contains('active')) switchView('summary');
   renderAll();
 }
+
 function switchView(view) {
   document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
   document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
