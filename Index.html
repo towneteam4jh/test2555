@@ -1,0 +1,1152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TEST 2555 - JH East Baltimore</title>
+<style>
+:root{--navy:#0f1e2e;--blue:#2d6ea8;--teal:#1a9e8f;--red:#c0392b;--red-lt:#fddbd7;--orange:#d35400;--orange-lt:#fdebd0;--green:#1a7a4a;--green-lt:#d4edda;--gray:#f4f6f8;--gray2:#e8ecf0;--text:#1a2332;--text2:#546e7a;--border:#dde3e8;}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial,sans-serif;background:#f0f3f6;color:var(--text);min-height:100vh}
+.topbar{background:var(--navy);color:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 24px;height:52px;position:sticky;top:0;z-index:100}
+.badge{display:inline-block;padding:3px 8px;border-radius:20px;font-size:11px;font-weight:700}
+.test-b{background:#e74c3c;color:#fff}
+.site-b{background:var(--blue);color:#fff}
+.user-sel{background:#1a2f42;border:1px solid rgba(255,255,255,.2);color:#fff;font-size:13px;padding:5px 10px;border-radius:6px;cursor:pointer;outline:none}
+.nav{background:#fff;border-bottom:1px solid var(--border);display:flex;padding:0 24px;position:sticky;top:52px;z-index:99;overflow-x:auto}
+.tab{padding:13px 16px;font-size:13px;font-weight:500;color:var(--text2);cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap}
+.tab:hover{color:var(--text)}
+.tab.active{color:var(--blue);border-bottom-color:var(--blue)}
+.tab.doo{color:var(--red)}
+.tab.doo.active{border-bottom-color:var(--red)}
+.tab.hist{color:#8e44ad}
+.tab.hist.active{border-bottom-color:#8e44ad}
+.view{display:none;padding:24px;max-width:1400px;margin:0 auto}
+.view.active{display:block}
+.card{background:#fff;border-radius:12px;border:1px solid var(--border);padding:22px;margin-bottom:18px}
+.metric-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-bottom:20px}
+.metric{background:#fff;border:1px solid var(--border);border-radius:12px;padding:16px 18px;position:relative;overflow:hidden}
+.metric::before{content:"";position:absolute;top:0;left:0;right:0;height:3px}
+.m-red::before{background:var(--red)}
+.m-green::before{background:var(--teal)}
+.m-orange::before{background:var(--orange)}
+.m-blue::before{background:var(--blue)}
+.ml{font-size:11px;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:.4px;margin-bottom:6px}
+.mv{font-size:26px;font-weight:600}
+.mv.red{color:var(--red)}.mv.green{color:var(--teal)}.mv.orange{color:var(--orange)}
+.ms{font-size:11px;color:var(--text2);margin-top:4px}
+.tbl-wrap{overflow-x:auto;border-radius:8px;border:1px solid var(--border)}
+table{width:100%;border-collapse:collapse;font-size:13px}
+thead th{background:var(--navy);color:#fff;padding:9px 12px;text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.4px;white-space:nowrap}
+tbody tr{border-bottom:1px solid var(--border)}
+tbody tr:last-child{border-bottom:none}
+tbody tr:hover{background:var(--gray)}
+tbody tr.r-red{background:#fef5f4}
+tbody tr.r-orange{background:#fef9f4}
+tbody tr.r-green{background:#f3faf6}
+tbody tr.r-yellow{background:#fffde7}
+td{padding:9px 12px;vertical-align:middle}
+td.nm{font-weight:600}
+td.ct{text-align:center}
+td.mt{color:var(--text2);font-size:12px}
+.bdg{display:inline-block;padding:2px 8px;border-radius:20px;font-size:11px;font-weight:600;white-space:nowrap}
+.b-red{background:var(--red-lt);color:var(--red)}
+.b-orange{background:var(--orange-lt);color:var(--orange)}
+.b-green{background:var(--green-lt);color:var(--green)}
+.b-blue{background:#e8f0fa;color:var(--blue)}
+.b-gray{background:var(--gray2);color:var(--text2)}
+.b-navy{background:var(--navy);color:#fff}
+.b-teal{background:#e0f5f3;color:var(--teal)}
+.fg{display:flex;flex-direction:column;gap:4px}
+.fg label{font-size:11px;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:.3px}
+.fg input,.fg select,.fg textarea{padding:8px 11px;border:1px solid var(--border);border-radius:7px;font-size:13px;color:var(--text);background:#fff;outline:none}
+.fg input:focus,.fg select:focus,.fg textarea:focus{border-color:var(--blue)}
+.fg textarea{resize:vertical;min-height:65px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+.btn{padding:9px 18px;border-radius:7px;font-size:13px;font-weight:600;cursor:pointer;border:none}
+.btn-blue{background:var(--blue);color:#fff}
+.btn-red{background:var(--red);color:#fff}
+.btn-orange{background:var(--orange);color:#fff}
+.btn-ghost{background:none;border:1px solid var(--border);color:var(--text2)}
+.btn-teal{background:var(--teal);color:#fff}
+.btn-sm{padding:4px 10px;font-size:12px}
+.fr{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:14px}
+.fr input,.fr select{padding:6px 10px;border:1px solid var(--border);border-radius:7px;font-size:13px;outline:none}
+.overlay{position:fixed;inset:0;background:rgba(15,30,46,.6);z-index:9999;display:flex;align-items:center;justify-content:center}
+.modal{background:#fff;border-radius:14px;padding:28px;width:520px;max-width:95vw;max-height:90vh;overflow-y:auto;box-shadow:0 8px 32px rgba(15,30,46,.2)}
+.modal h3{font-size:16px;font-weight:600;margin-bottom:5px}
+.modal p{font-size:12px;color:var(--text2);margin-bottom:20px}
+.mf{display:flex;gap:10px;justify-content:flex-end;margin-top:20px;padding-top:16px;border-top:1px solid var(--border)}
+.toast{position:fixed;bottom:24px;right:24px;background:var(--navy);color:#fff;padding:11px 18px;border-radius:9px;font-size:13px;font-weight:500;z-index:99999;transform:translateY(60px);opacity:0;transition:all .3s;max-width:320px}
+.toast.show{transform:translateY(0);opacity:1}
+.toast.ok{background:var(--teal)}
+.toast.err{background:var(--red)}
+.empty{text-align:center;padding:44px 24px;color:var(--text2)}
+.rl{font-size:10px;font-weight:700;padding:2px 6px;border-radius:4px;background:var(--gray2);color:var(--text2)}
+.wd-remind{background:#e8f5e9;border:1px solid #a5d6a7;border-radius:7px;padding:11px 14px;margin-top:14px;font-size:13px;color:#2e7d32;display:none}
+.upload-zone{border:2px dashed var(--border);border-radius:12px;padding:28px;text-align:center;cursor:pointer}
+.upload-zone:hover{border-color:var(--blue);background:#f5f8ff}
+.upload-zone p{font-size:13px;color:var(--text2);margin-top:7px}
+.doo-sec{margin-bottom:28px}
+.doo-sec-title{font-size:11px;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:.7px;margin-bottom:12px;padding-bottom:7px;border-bottom:2px solid var(--navy)}
+@media(max-width:700px){.grid2,.grid3{grid-template-columns:1fr}.metric-grid{grid-template-columns:1fr 1fr}.view{padding:14px}}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div style="display:flex;align-items:center;gap:10px">
+    <span class="badge test-b">TEST</span>
+    <span class="badge site-b">SITE 2555</span>
+    <span style="font-size:14px;font-weight:600">JH East Baltimore Call-Out Tracker</span>
+  </div>
+  <div style="display:flex;align-items:center;gap:10px">
+    <span id="sync-txt" style="font-size:11px;color:rgba(255,255,255,.6)">Not connected</span>
+    <select class="user-sel" id="uSel" onchange="switchUser(this.value)">
+      <option value="">Select your name...</option>
+      <option value="shalonda">Shalonda Booker</option>
+      <option value="joe">Joe Davis</option>
+      <option value="bryant">Bryant Duncan</option>
+      <option value="rachel">Rachel Culling (Admin)</option>
+    </select>
+  </div>
+</div>
+
+<div class="nav">
+  <div class="tab active" onclick="go('summary')" id="t-summary">Summary</div>
+  <div class="tab" onclick="go('exceptions')" id="t-exceptions">Exceptions</div>
+  <div class="tab" onclick="go('calog')" id="t-calog">CA Log</div>
+  <div class="tab" onclick="go('verbals')" id="t-verbals">Verbal Log</div>
+  <div class="tab" onclick="go('weekly')" id="t-weekly" style="display:none">Weekly Data</div>
+  <div class="tab doo" onclick="go('doo')" id="t-doo">DOO View</div>
+  <div class="tab hist" onclick="go('history')" id="t-history">History</div>
+</div>
+
+<div class="view active" id="v-summary">
+  <div id="setup-banner" style="background:#fff8e1;border:1px solid #ffe082;border-radius:8px;padding:10px 14px;margin-bottom:14px;font-size:12px;color:#7a5f00;display:none">
+    Setup needed: Select Rachel (Admin) and click the Data Connection tile.
+  </div>
+  <div class="metric-grid" id="sum-metrics"></div>
+  <div class="card" style="padding:0;overflow:hidden">
+    <div style="padding:16px 18px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);flex-wrap:wrap;gap:8px">
+      <div>
+        <div style="font-size:15px;font-weight:600">Associates</div>
+        <div style="font-size:12px;color:var(--text2);margin-top:2px">3 consecutive NCNS = Job Abandonment</div>
+      </div>
+      <div class="fr" style="margin:0">
+        <input type="text" id="s-sum" placeholder="Search name..." oninput="renderSummary()" style="width:160px">
+        <select id="f-status" onchange="renderSummary()">
+          <option value="all">All statuses</option>
+          <option value="TERM_REQUIRED">Termination Required</option>
+          <option value="ABANDONMENT">Job Abandonment</option>
+          <option value="ISSUE_FINAL">Issue Final Warning</option>
+          <option value="ISSUE_WRITTEN">Issue Written Warning</option>
+          <option value="VERBAL">Verbal Needed</option>
+          <option value="OK">OK</option>
+        </select>
+        <select id="f-role" onchange="renderSummary()"><option value="all">All roles</option></select>
+        <button class="btn btn-ghost btn-sm" onclick="expSumXL()">Excel</button>
+        <button class="btn btn-ghost btn-sm" onclick="expSumPDF()">PDF</button>
+      </div>
+    </div>
+    <div class="tbl-wrap" style="border:none;border-radius:0">
+      <table><thead><tr><th>Associate / Role</th><th>Stage</th><th>Progress</th><th>Last CA</th><th>W</th><th>F</th><th>T</th><th>Action</th><th></th></tr></thead>
+      <tbody id="sum-body"></tbody></table>
+    </div>
+  </div>
+</div>
+
+<div class="view" id="v-exceptions">
+  <div class="card">
+    <div style="font-size:13px;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:.5px;margin-bottom:14px">Log New Exception</div>
+    <div class="grid3" style="margin-bottom:12px">
+      <div class="fg"><label>Associate Name</label><input type="text" id="e-name" list="al1" oninput="showDates(this.value)"><datalist id="al1"></datalist></div>
+      <div class="fg"><label>Call-Out Date</label><input type="date" id="e-date" onchange="calcWeek(this.value,'e-week')"></div>
+      <div class="fg"><label>Week Range</label><input type="text" id="e-week" readonly style="background:var(--gray);cursor:not-allowed"></div>
+    </div>
+    <div id="dates-panel" style="display:none;margin-bottom:12px">
+      <div style="font-size:11px;font-weight:600;color:var(--text2);margin-bottom:6px">CALL-OUT DATES ON FILE — CLICK TO SELECT</div>
+      <div id="dates-list" style="display:flex;flex-wrap:wrap;gap:6px"></div>
+    </div>
+    <div class="grid2" style="margin-bottom:16px">
+      <div class="fg"><label>Decision</label>
+        <select id="e-dec">
+          <option value="FMLA">FMLA (Protected)</option>
+          <option value="ADA Accommodation">ADA Accommodation (Protected)</option>
+          <option value="Workers Comp">Workers Compensation (Protected)</option>
+          <option value="Jury Duty">Jury or Witness Duty (Protected)</option>
+          <option value="Military Leave">Military Leave (Protected)</option>
+          <option value="Approved PTO">Approved PTO</option>
+          <option value="Sick Leave Law">Mandatory Sick Leave (Protected)</option>
+          <option value="No Penalty">No Penalty</option>
+          <option value="Excused">Excused</option>
+        </select>
+      </div>
+      <div class="fg"><label>Reason / Notes</label><input type="text" id="e-notes" placeholder="e.g. Dr note submitted..."></div>
+    </div>
+    <button class="btn btn-blue" onclick="addException()">Save Exception</button>
+  </div>
+  <div class="card" style="padding:0;overflow:hidden">
+    <div style="padding:14px 18px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);flex-wrap:wrap;gap:8px">
+      <div style="font-size:15px;font-weight:600">Exception Log</div>
+      <div style="display:flex;gap:8px;align-items:center">
+        <input type="text" id="s-exc" placeholder="Search..." oninput="renderExc()" style="padding:6px 10px;border:1px solid var(--border);border-radius:7px;font-size:13px;outline:none;width:160px">
+        <button class="btn btn-ghost btn-sm" onclick="expExcXL()">Excel</button>
+        <button class="btn btn-ghost btn-sm" onclick="expExcPDF()">PDF</button>
+      </div>
+    </div>
+    <div class="tbl-wrap" style="border:none;border-radius:0">
+      <table><thead><tr><th>Date</th><th>Associate</th><th>Week</th><th>Decision</th><th>Reason</th><th>Status</th><th>By</th><th></th></tr></thead>
+      <tbody id="exc-body"></tbody></table>
+    </div>
+  </div>
+</div>
+
+<div class="view" id="v-calog">
+  <div class="card">
+    <div style="font-size:13px;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:.5px;margin-bottom:14px">Log CA Issuance</div>
+    <div style="background:#f5f8ff;border:1px solid #dde8f5;border-radius:7px;padding:11px 14px;margin-bottom:16px;font-size:12px;color:var(--blue)">
+      <strong>Note:</strong> Logging a CA resets the counter from this date. Issue within 3 business days. Upload signed document to Workday.
+    </div>
+    <div class="grid3" style="margin-bottom:12px">
+      <div class="fg"><label>Associate Name</label><input type="text" id="ca-name" list="al2" oninput="updateCALevel(this.value)"><datalist id="al2"></datalist></div>
+      <div class="fg"><label>Date Issued</label><input type="date" id="ca-date"></div>
+      <div class="fg"><label>CA Level</label>
+        <select id="ca-level"><option value="Written">Written Warning</option><option value="Final">Final Warning</option><option value="Term">Termination</option></select>
+        <div id="ca-note" style="font-size:11px;color:var(--text2);margin-top:3px;display:none"></div>
+      </div>
+    </div>
+    <div class="grid2" style="margin-bottom:16px">
+      <div class="fg"><label>Trigger / Reason</label><input type="text" id="ca-reason" placeholder="e.g. 3 call-outs within 90 days"></div>
+      <div class="fg"><label>Delivered to Associate?</label><select id="ca-del"><option value="Yes">Yes</option><option value="No">No</option><option value="Pending">Pending</option></select></div>
+    </div>
+    <div class="fg" style="margin-bottom:16px"><label>Notes</label><textarea id="ca-notes" placeholder="Optional..."></textarea></div>
+    <button class="btn btn-blue" onclick="logCA()">Log CA</button>
+    <div class="wd-remind" id="wd-remind">CA logged! <strong>Remember to upload signed document to Workday.</strong></div>
+  </div>
+  <div class="card" style="padding:0;overflow:hidden">
+    <div style="padding:14px 18px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);flex-wrap:wrap;gap:8px">
+      <div style="font-size:15px;font-weight:600">CA History</div>
+      <div style="display:flex;gap:8px;align-items:center">
+        <input type="text" id="s-ca" placeholder="Search..." oninput="renderCA()" style="padding:6px 10px;border:1px solid var(--border);border-radius:7px;font-size:13px;outline:none;width:160px">
+        <button class="btn btn-ghost btn-sm" onclick="expCAXL()">Excel</button>
+        <button class="btn btn-ghost btn-sm" onclick="expCAPDF()">PDF</button>
+      </div>
+    </div>
+    <div class="tbl-wrap" style="border:none;border-radius:0">
+      <table><thead><tr><th>Date</th><th>Associate</th><th>Level</th><th>Reason</th><th>Delivered</th><th>By</th><th>Notes</th><th></th></tr></thead>
+      <tbody id="ca-body"></tbody></table>
+    </div>
+  </div>
+</div>
+
+<div class="view" id="v-verbals">
+  <div class="card">
+    <div style="font-size:13px;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:.5px;margin-bottom:14px">Log Verbal Warning</div>
+    <div style="background:#fff8e1;border:1px solid #ffe082;border-radius:7px;padding:11px 14px;margin-bottom:16px;font-size:12px;color:#7a5f00">
+      <strong>Note:</strong> Log within 3 business days. No formal paperwork required but documentation is mandatory.
+    </div>
+    <div class="grid3" style="margin-bottom:12px">
+      <div class="fg"><label>Associate Name</label><input type="text" id="vb-name" list="al3"><datalist id="al3"></datalist></div>
+      <div class="fg"><label>Date of Conversation</label><input type="date" id="vb-date"></div>
+      <div class="fg"><label>Manager Who Delivered</label><input type="text" id="vb-mgr" placeholder="Manager name..."></div>
+    </div>
+    <div class="fg" style="margin-bottom:16px"><label>Notes / Summary</label><textarea id="vb-notes" placeholder="Summarize conversation, associate response..."></textarea></div>
+    <button class="btn btn-orange" onclick="logVerbal()">Log Verbal Warning</button>
+  </div>
+  <div class="card" style="padding:0;overflow:hidden">
+    <div style="padding:14px 18px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);flex-wrap:wrap;gap:8px">
+      <div style="font-size:15px;font-weight:600">Verbal Warning Log</div>
+      <div style="display:flex;gap:8px;align-items:center">
+        <input type="text" id="s-vb" placeholder="Search..." oninput="renderVerbals()" style="padding:6px 10px;border:1px solid var(--border);border-radius:7px;font-size:13px;outline:none;width:160px">
+        <button class="btn btn-ghost btn-sm" onclick="expVbXL()">Excel</button>
+        <button class="btn btn-ghost btn-sm" onclick="expVbPDF()">PDF</button>
+      </div>
+    </div>
+    <div class="tbl-wrap" style="border:none;border-radius:0">
+      <table><thead><tr><th>Date</th><th>Associate</th><th>Delivered By</th><th>Logged By</th><th>Notes</th><th></th></tr></thead>
+      <tbody id="vb-body"></tbody></table>
+    </div>
+  </div>
+</div>
+
+<div class="view" id="v-weekly">
+  <div class="card">
+    <div style="font-size:13px;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:.5px;margin-bottom:14px">Upload Weekly Report</div>
+    <p style="font-size:13px;color:var(--text2);margin-bottom:16px">Upload your weekly absence CSV or Excel file every Monday.</p>
+    <div class="upload-zone" onclick="document.getElementById('f-upload').click()">
+      <div style="font-size:28px">📂</div>
+      <p>Click to upload Excel or CSV</p>
+      <p style="font-size:11px;margin-top:4px">Expected: Date, Associate Name, Absence Type, Role, Week Range</p>
+    </div>
+    <input type="file" id="f-upload" accept=".xlsx,.csv" style="display:none" onchange="handleUpload(event)">
+    <div id="up-result" style="margin-top:12px;display:none"></div>
+  </div>
+  <div class="card" style="padding:0;overflow:hidden">
+    <div style="padding:14px 18px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);flex-wrap:wrap;gap:8px">
+      <div>
+        <div style="font-size:15px;font-weight:600">Call-Out Log</div>
+        <div style="font-size:12px;color:var(--text2);margin-top:2px" id="wk-count"></div>
+      </div>
+      <div style="display:flex;gap:8px;align-items:center">
+        <input type="text" id="s-wk" placeholder="Search..." oninput="renderWeekly()" style="padding:6px 10px;border:1px solid var(--border);border-radius:7px;font-size:13px;outline:none;width:160px">
+        <button class="btn btn-ghost btn-sm" onclick="expWkXL()">Excel</button>
+        <button class="btn btn-red btn-sm" onclick="clearAll()">Clear All</button>
+      </div>
+    </div>
+    <div class="tbl-wrap" style="border:none;border-radius:0">
+      <table><thead><tr><th>Date</th><th>Associate</th><th>Role</th><th>Type</th><th>Week</th><th></th></tr></thead>
+      <tbody id="wk-body"></tbody></table>
+    </div>
+  </div>
+</div>
+
+<div class="view" id="v-doo">
+  <div id="doo-pending-banner" style="display:none;background:var(--red-lt);border:1px solid var(--red);border-radius:8px;padding:12px 16px;margin-bottom:16px;font-size:13px;color:var(--red);font-weight:600"></div>
+  <div id="doo-pending-section" style="display:none;margin-bottom:24px">
+    <div class="doo-sec-title" style="color:var(--red)">Terminations Pending Your Approval</div>
+    <div class="tbl-wrap"><table>
+      <thead><tr><th>Associate</th><th>Reason</th><th>Requested By</th><th>Date</th><th>Action</th></tr></thead>
+      <tbody id="doo-pending-body"></tbody>
+    </table></div>
+  </div>
+  <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:8px">
+    <div>
+      <h1 style="font-size:21px;font-weight:600">JH East Baltimore Command Center</h1>
+      <p style="font-size:12px;color:var(--text2);margin-top:2px">TEST Site 2555 · Live data</p>
+    </div>
+    <div style="display:flex;gap:8px">
+      <button class="btn btn-ghost btn-sm" onclick="expDOOXL()">Excel</button>
+      <button class="btn btn-ghost btn-sm" onclick="expDOOPDF()">PDF</button>
+    </div>
+  </div>
+  <div class="metric-grid" id="doo-metrics"></div>
+  <div class="doo-sec">
+    <div class="doo-sec-title">Termination Required</div>
+    <div class="tbl-wrap"><table><thead><tr><th>Associate</th><th>Role</th><th>Status</th><th>Action</th></tr></thead><tbody id="doo-term"></tbody></table></div>
+  </div>
+  <div class="doo-sec">
+    <div class="doo-sec-title">Needs CA Action</div>
+    <div class="tbl-wrap"><table><thead><tr><th>Associate</th><th>Role</th><th>Active</th><th>Status</th><th>Next Step</th></tr></thead><tbody id="doo-ca"></tbody></table></div>
+  </div>
+  <div class="doo-sec">
+    <div class="doo-sec-title">Verbal Needed</div>
+    <div class="tbl-wrap"><table><thead><tr><th>Associate</th><th>Role</th><th>Active</th><th>Verbal Given</th><th>Action</th></tr></thead><tbody id="doo-vb"></tbody></table></div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px">
+    <div class="doo-sec" style="margin-bottom:0">
+      <div class="doo-sec-title">CA Pipeline</div>
+      <div class="tbl-wrap"><table><thead><tr><th>Level</th><th>Issued</th><th>Associates</th></tr></thead><tbody id="doo-pipe"></tbody></table></div>
+    </div>
+    <div class="doo-sec" style="margin-bottom:0">
+      <div class="doo-sec-title">Call-Outs by Role</div>
+      <div class="tbl-wrap"><table><thead><tr><th>Role</th><th>Headcount</th><th>Total</th><th>Flagged</th></tr></thead><tbody id="doo-role"></tbody></table></div>
+    </div>
+  </div>
+</div>
+
+<div class="view" id="v-history">
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;flex-wrap:wrap;gap:8px">
+    <div>
+      <h2 style="font-size:17px;font-weight:600">Complete Audit Trail</h2>
+      <p style="font-size:12px;color:var(--text2);margin-top:2px">All actions logged automatically. Permanent and read-only.</p>
+    </div>
+    <div style="display:flex;gap:8px">
+      <button class="btn btn-ghost btn-sm" onclick="expHisXL()">Excel</button>
+      <button class="btn btn-ghost btn-sm" onclick="expHisPDF()">PDF</button>
+    </div>
+  </div>
+  <div class="fr">
+    <input type="text" id="s-his" placeholder="Search name..." oninput="renderHistory()" style="width:160px">
+    <select id="f-his-type" onchange="renderHistory()">
+      <option value="all">All action types</option>
+      <option value="Verbal Warning">Verbal Warnings</option>
+      <option value="Written Warning">Written Warnings</option>
+      <option value="Final Warning">Final Warnings</option>
+      <option value="Exception">Exceptions</option>
+      <option value="Termination">Terminations</option>
+      <option value="Resignation">Resignations</option>
+      <option value="Clean Slate">Clean Slate</option>
+    </select>
+    <select id="f-his-mgr" onchange="renderHistory()"><option value="all">All managers</option></select>
+    <input type="date" id="f-his-from" onchange="renderHistory()" title="From date">
+    <input type="date" id="f-his-to" onchange="renderHistory()" title="To date">
+  </div>
+  <div class="tbl-wrap">
+    <table><thead><tr><th>Date</th><th>Associate</th><th>Action</th><th>Details</th><th>By</th><th></th></tr></thead>
+    <tbody id="his-body"></tbody></table>
+  </div>
+</div>
+
+<!-- MODALS -->
+<div id="m-term" style="display:none" class="overlay">
+  <div class="modal">
+    <h3 style="color:var(--red)">Confirm Termination</h3>
+    <p id="m-term-msg">Confirm?</p>
+    <div class="fg" style="margin-bottom:12px"><label>Reason</label>
+      <select id="term-reason"><option value="Attendance Policy Violation">Attendance Policy Violation</option><option value="Job Abandonment">Job Abandonment</option><option value="Voluntary Resignation">Voluntary Resignation</option><option value="Other">Other</option></select>
+    </div>
+    <div class="fg" style="margin-bottom:12px"><label>Notes</label><textarea id="term-notes" placeholder="Optional..."></textarea></div>
+    <div style="background:var(--red-lt);border-radius:7px;padding:11px;font-size:12px;color:var(--red);margin-bottom:14px"><strong>This will be submitted to Bryant Duncan (DOO) for approval.</strong> The associate will remain on the active roster until Bryant approves the termination.</div>
+    <div class="mf">
+      <button class="btn btn-ghost" onclick="closeM('m-term')">Cancel</button>
+      <button class="btn btn-red" onclick="doTerminate()">Submit for DOO Approval</button>
+    </div>
+  </div>
+</div>
+
+<div id="m-manual" style="display:none" class="overlay">
+  <div class="modal">
+    <h3 style="color:#8e44ad">Manual Action (Admin Only)</h3>
+    <p id="m-manual-msg">Process resignation or non-attendance termination.</p>
+    <div class="fg" style="margin-bottom:12px"><label>Action Type</label>
+      <select id="manual-type"><option value="Voluntary Resignation">Voluntary Resignation</option><option value="Terminated — Non-Attendance">Terminated — Non-Attendance</option><option value="Inactive — No Longer Employed">Inactive — No Longer Employed</option><option value="Other">Other</option></select>
+    </div>
+    <div class="fg" style="margin-bottom:12px"><label>Notes</label><textarea id="manual-notes" placeholder="Reason for manual action..."></textarea></div>
+    <div class="mf">
+      <button class="btn btn-ghost" onclick="closeM('m-manual')">Cancel</button>
+      <button class="btn btn-teal" onclick="doManual()">Confirm</button>
+    </div>
+  </div>
+</div>
+
+<div id="m-setup" style="display:none" class="overlay">
+  <div class="modal">
+    <h3>Connect Google Sheet</h3>
+    <p>Paste your Google Apps Script Web App URL to enable live data sync.</p>
+    <div class="fg" style="margin-bottom:14px"><label>Apps Script Web App URL</label><input type="text" id="setup-url" placeholder="https://script.google.com/macros/s/..."></div>
+    <div class="mf">
+      <button class="btn btn-ghost" onclick="closeM('m-setup')">Cancel</button>
+      <button class="btn btn-blue" onclick="saveURL()">Save and Connect</button>
+    </div>
+  </div>
+</div>
+
+<div id="m-del" style="display:none" class="overlay">
+  <div class="modal">
+    <h3>Confirm Delete</h3>
+    <p id="m-del-msg">Delete this entry?</p>
+    <div class="mf">
+      <button class="btn btn-ghost" onclick="closeM('m-del')">Cancel</button>
+      <button class="btn btn-red" id="del-btn">Delete</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script>
+var PIN = '1113';
+var PFX = 'test2555v4';
+var W0=90, W1=60, W2=30, CS=180;
+var UNAMES = {shalonda:'Shalonda Booker',joe:'Joe Davis',bryant:'Bryant Duncan',rachel:'Rachel Culling (Admin)'};
+var callouts=[], exceptions=[], caLog=[], verbals=[], hist=[], pendingTerms=[];
+var user='', url='', synced=false;
+var pTerm=null, pManual=null, pDel=null;
+
+function setSS(s){
+  var c={ok:'#1a9e8f',err:'#c0392b',syn:'#f39c12',idle:'#b0bec5'};
+  var t={ok:'Live',err:'Offline',syn:'Syncing...',idle:'Not connected'};
+  document.getElementById('sync-txt').textContent=t[s]||'...';
+  document.getElementById('sync-txt').style.color=c[s]||'rgba(255,255,255,.6)';
+}
+
+function nd(d){
+  if(!d) return '';
+  var s=String(d);
+  if(s.length===10) return s;
+  var p=new Date(s);
+  return isNaN(p)?s.slice(0,10):p.toISOString().slice(0,10);
+}
+
+async function gsr(action,pay){
+  if(!url) return null;
+  try{
+    var r=await fetch(url+'?action='+action+'&t='+Date.now(),{method:'POST',body:JSON.stringify(Object.assign({action:action},pay||{}))});
+    if(!r.ok) throw new Error('HTTP '+r.status);
+    return await r.json();
+  }catch(e){console.warn('GS:',e);return null;}
+}
+async function gsAdd(sh,row){var r=await gsr('add',{sheet:sh,row:row});if(r&&r.id)row.id=r.id;}
+async function gsDel(sh,id){if(id) await gsr('delete',{sheet:sh,id:id});}
+
+async function sync(){
+  if(!url) return;
+  setSS('syn');
+  try{
+    var r=await gsr('getAll');
+    if(!r||r.error) throw new Error(r&&r.error||'fail');
+    callouts=(r.callouts||[]).map(function(c){return Object.assign({},c,{date:nd(c.date)});});
+    exceptions=(r.exceptions||[]).map(function(e){return Object.assign({},e,{date:nd(e.date)});});
+    caLog=(r.calog||[]).map(function(c){return Object.assign({},c,{date:nd(c.date),level:(c.level||'').trim()});});
+    verbals=(r.verbals||[]).map(function(v){return Object.assign({},v,{date:nd(v.date)});});
+    hist=(r.history||[]).map(function(h){return Object.assign({},h,{date:nd(h.date||h.terminationDate)});});
+    save();setSS('ok');synced=true;renderAll();
+  }catch(e){setSS('err');synced=false;loadLocal();}
+}
+
+setInterval(function(){if(document.visibilityState==='visible'&&url)sync();},30000);
+
+function save(){
+  try{
+    localStorage.setItem(PFX+'_c',JSON.stringify(callouts));
+    localStorage.setItem(PFX+'_e',JSON.stringify(exceptions));
+    localStorage.setItem(PFX+'_ca',JSON.stringify(caLog));
+    localStorage.setItem(PFX+'_v',JSON.stringify(verbals));
+    localStorage.setItem(PFX+'_h',JSON.stringify(hist));
+    localStorage.setItem(PFX+'_pt',JSON.stringify(pendingTerms));
+  }catch(x){}
+}
+function loadLocal(){
+  try{
+    callouts=JSON.parse(localStorage.getItem(PFX+'_c')||'[]');
+    exceptions=JSON.parse(localStorage.getItem(PFX+'_e')||'[]');
+    caLog=JSON.parse(localStorage.getItem(PFX+'_ca')||'[]').map(function(c){return Object.assign({},c,{level:(c.level||'').trim()});});
+    verbals=JSON.parse(localStorage.getItem(PFX+'_v')||'[]');
+    hist=JSON.parse(localStorage.getItem(PFX+'_h')||'[]');
+    pendingTerms=JSON.parse(localStorage.getItem(PFX+'_pt')||'[]');
+  }catch(x){callouts=[];exceptions=[];caLog=[];verbals=[];hist=[];pendingTerms=[];}
+}
+function load(){
+  if(localStorage.getItem(PFX+'_ver')!=='v4'){Object.keys(localStorage).filter(function(k){return k.indexOf(PFX)===0;}).forEach(function(k){localStorage.removeItem(k);});localStorage.setItem(PFX+'_ver','v4');}
+  loadLocal();
+  url=localStorage.getItem(PFX+'_url')||'';
+  renderAll();
+  if(url)sync();
+  else{setSS('idle');document.getElementById('setup-banner').style.display='block';}
+}
+function openSetup(){document.getElementById('setup-url').value=url||'';document.getElementById('m-setup').style.display='flex';}
+function saveURL(){
+  var v=document.getElementById('setup-url').value.trim();
+  if(!v||v.indexOf('https://')<0){toast('Please enter a valid URL','err');return;}
+  url=v;localStorage.setItem(PFX+'_url',url);
+  closeM('m-setup');document.getElementById('setup-banner').style.display='none';
+  toast('Connecting...','ok');sync();
+}
+
+function switchUser(val){
+  if(val==='rachel'||val==='bryant'){
+    var pinRequired=val==='rachel'?PIN:'1212';
+    var pinTitle=val==='rachel'?'Admin Access':'DOO Access';
+    var ov=document.createElement('div');
+    ov.className='overlay';ov.id='pin-ov';
+    var bx=document.createElement('div');
+    bx.className='modal';
+    bx.innerHTML='<h3>'+pinTitle+'</h3><p>Enter your PIN to continue</p>'
+      +'<div class="fg" style="margin-bottom:12px"><label>PIN</label>'
+      +'<input type="password" id="pin-inp" maxlength="4" autocomplete="off" style="font-size:22px;letter-spacing:10px;text-align:center" placeholder="****"></div>'
+      +'<div id="pin-err" style="color:var(--red);font-size:12px;min-height:16px;margin-bottom:10px"></div>'
+      +'<div class="mf"><button class="btn btn-ghost" id="pin-cancel">Cancel</button><button class="btn btn-blue" id="pin-ok">Enter</button></div>';
+    ov.appendChild(bx);
+    document.body.appendChild(ov);
+    var inp=document.getElementById('pin-inp');
+    inp.focus();
+    function rm(){var o=document.getElementById('pin-ov');if(o)document.body.removeChild(o);}
+    function chk(){
+      var p=document.getElementById('pin-inp').value;
+      if(p===pinRequired){
+        rm();user=val;
+        if(val==='rachel')document.getElementById('t-weekly').style.display='';
+        renderAll();
+        if(val==='bryant'){go('doo');checkPendingApprovals();}
+      }else{document.getElementById('pin-err').textContent='Incorrect PIN. Try again.';document.getElementById('pin-inp').value='';document.getElementById('pin-inp').focus();}
+    }
+    document.getElementById('pin-cancel').onclick=function(){rm();document.getElementById('uSel').value='';};
+    document.getElementById('pin-ok').onclick=chk;
+    inp.addEventListener('keydown',function(e){if(e.key==='Enter')chk();});
+    return;
+  }
+  user=val;
+  document.getElementById('t-weekly').style.display=val==='rachel'?'':'none';
+  if(val!=='rachel'&&document.getElementById('v-weekly').classList.contains('active'))go('summary');
+  renderAll();
+}
+
+function go(v){
+  document.querySelectorAll('.view').forEach(function(x){x.classList.remove('active');});
+  document.querySelectorAll('.tab').forEach(function(x){x.classList.remove('active');});
+  document.getElementById('v-'+v).classList.add('active');
+  document.getElementById('t-'+v).classList.add('active');
+  if(v==='doo')renderDOO();
+  else if(v==='weekly')renderWeekly();
+  else if(v==='exceptions')renderExc();
+  else if(v==='calog')renderCA();
+  else if(v==='verbals')renderVerbals();
+  else if(v==='history')renderHistory();
+  else renderSummary();
+}
+
+function isExempt(name,date){
+  return exceptions.some(function(e){return e.name.toLowerCase()===name.toLowerCase()&&e.status==='Active'&&(e.date===date||e.week===weekRange(date));});
+}
+function weekRange(ds){
+  if(!ds)return'';
+  var d=new Date(ds);var day=d.getDay();
+  var m=new Date(d);m.setDate(d.getDate()+(day===0?-6:1-day));
+  var s=new Date(m);s.setDate(m.getDate()+6);
+  return (m.getMonth()+1)+'.'+m.getDate()+'-'+(s.getMonth()+1)+'.'+s.getDate();
+}
+function calcWeek(d,tid){var el=document.getElementById(tid);if(el)el.value=weekRange(d);}
+
+function getStats(name){
+  var now=new Date();
+  var all=callouts.filter(function(c){return c.name.toLowerCase()===name.toLowerCase()&&!isExempt(c.name,c.date);});
+  var roleC=callouts.find(function(c){return c.name.toLowerCase()===name.toLowerCase();});
+  var role=roleC?roleC.role:'';
+  if(!role||role==='role')role='';
+  var cas=caLog.filter(function(c){return c.name.toLowerCase()===name.toLowerCase();}).sort(function(a,b){return a.date.localeCompare(b.date);});
+  var lW=null,lF=null;
+  cas.forEach(function(c){if(c.level==='Written')lW=c;if(c.level==='Final')lF=c;});
+  var hasTerm=cas.some(function(c){return c.level==='Term';});
+  var wCnt=cas.filter(function(c){return c.level==='Written';}).length;
+  var fCnt=cas.filter(function(c){return c.level==='Final';}).length;
+  var tCnt=cas.filter(function(c){return c.level==='Term';}).length;
+
+  // Clean slate check
+  var sorted=all.slice().sort(function(a,b){return b.date.localeCompare(a.date);});
+  var last=sorted[0];
+  var dSince=last?Math.floor((now-new Date(last.date))/86400000):9999;
+  if(all.length>0&&dSince>=CS){
+    return{name:name,role:role,ac:0,at:all.length,status:'CLEAN_SLATE',na:'Clean Slate',prog:'',wCnt:wCnt,fCnt:fCnt,tCnt:tCnt,lastCA:null,stage:'none'};
+  }
+
+  // Determine active count based on current CA stage
+  // Per approved policy: clean reset after each CA
+  var ac=0,stage='none',threshold=3,windowDays=W0;
+
+  if(lF){
+    // After Final: 30-day window from Final CA date, need 1 more
+    stage='final'; threshold=1; windowDays=W2;
+    var fd=new Date(lF.date),fe=new Date(lF.date);fe.setDate(fd.getDate()+W2);
+    ac=all.filter(function(c){var d=new Date(c.date);return d>fd&&d<=fe;}).length;
+  }else if(lW){
+    // After Written: 60-day window from Written CA date, need 3 more
+    stage='written'; threshold=3; windowDays=W1;
+    var wd=new Date(lW.date),we=new Date(lW.date);we.setDate(wd.getDate()+W1);
+    ac=all.filter(function(c){var d=new Date(c.date);return d>wd&&d<=we;}).length;
+  }else{
+    // No CA: 90-day rolling window, need 3
+    stage='none'; threshold=3; windowDays=W0;
+    var ago=new Date(now);ago.setDate(now.getDate()-W0);
+    ac=all.filter(function(c){return new Date(c.date)>=ago;}).length;
+  }
+
+  // Check consecutive NCNS
+  var ncns=all.filter(function(c){return c.type&&c.type.toLowerCase().indexOf('no show')>=0;}).sort(function(a,b){return b.date.localeCompare(a.date);});
+  var consNcns=false;
+  if(ncns.length>=3){
+    var d0=new Date(ncns[0].date),d1=new Date(ncns[1].date),d2=new Date(ncns[2].date);
+    if(Math.abs((d0-d1)/86400000)<=4&&Math.abs((d1-d2)/86400000)<=4)consNcns=true;
+  }
+
+  // Determine status and plain English next action
+  var status='OK',na='',prog='',stageLabel='';
+
+  if(hasTerm){
+    status='TERMED';na='Termed';prog='';stageLabel='Termed';
+  }else if(consNcns){
+    status='ABANDONMENT';na='JOB ABANDONMENT';prog='3 consecutive NCNS';stageLabel='Job Abandonment';
+  }else if(stage==='final'&&ac>=1){
+    status='TERM_REQUIRED';na='TERMINATION REQUIRED';
+    prog='TERMINATION REQUIRED. Associate has exceeded Final Warning. Click the button immediately.';stageLabel='On Final Warning';
+  }else if(stage==='written'&&ac>=3){
+    status='ISSUE_FINAL';na='Issue Final Warning';
+    prog=ac+' of 3 since Written CA — FINAL WARNING REQUIRED. Click the button to issue it now.';stageLabel='On Written Warning';
+  }else if(stage==='none'&&ac>=3){
+    status='ISSUE_WRITTEN';na='Issue Written Warning';
+    prog=ac+' of 3 call-outs — WRITTEN WARNING REQUIRED. Click the button to issue it now.';stageLabel='No CA on file';
+  }else if(ac===2&&stage==='none'){
+    status='VERBAL';na='Verbal Needed';
+    prog='2 of 3 call-outs — Have a verbal conversation NOW. 1 more = Written Warning.';stageLabel='No CA on file';
+  }else if(stage==='written'&&ac===2){
+    status='VERBAL';na='Monitor Closely';
+    prog='On Written Warning. 2 of 3 call-outs — Have a verbal NOW. 1 more = Final Warning.';stageLabel='On Written Warning';
+  }else if(stage==='written'&&ac===1){
+    status='OK';na='';
+    prog='On Written Warning. 1 of 3 call-outs since CA. 2 more = Final Warning.';stageLabel='On Written Warning';
+  }else if(stage==='written'&&ac===0){
+    status='OK';na='';
+    prog='On Written Warning. 0 of 3 call-outs since CA. 3 more = Final Warning.';stageLabel='On Written Warning';
+  }else if(stage==='final'&&ac===0){
+    status='OK';na='';
+    prog='On Final Warning. 0 call-outs since CA. ONE more call-out = TERMINATION.';stageLabel='On Final Warning';
+  }else if(ac===1&&stage==='none'){
+    status='OK';na='';
+    prog='1 of 3 call-outs — 2 more will require a Written Warning.';stageLabel='No CA on file';
+  }else{
+    status='OK';na='';
+    prog='0 of 3 call-outs — Currently OK. No action needed.';stageLabel='No CA on file';
+  }
+
+  var lCA=cas.filter(function(c){return c.level!=='Term';}).slice(-1)[0];
+  return{name:name,role:role,ac:ac,at:all.length,status:status,na:na,prog:prog,stageLabel:stageLabel,
+    wCnt:wCnt,fCnt:fCnt,tCnt:tCnt,lastCA:lCA?lCA.date:null,stage:stage,threshold:threshold};
+}
+
+function names(){var s={};callouts.forEach(function(c){s[c.name]=1;});return Object.keys(s).sort();}
+
+function renderSummary(){
+  var sch=(document.getElementById('s-sum')||{}).value||'';sch=sch.toLowerCase();
+  var sf=(document.getElementById('f-status')||{}).value||'all';
+  var rf=(document.getElementById('f-role')||{}).value||'all';
+  var ns=names();var roles={};
+  var tr=0,ab=0,if2=0,iw=0,vb=0,ok=0;
+  var rows=ns.map(function(n){
+    var s=getStats(n);if(s.role)roles[s.role]=1;
+    if(s.status==='TERM_REQUIRED')tr++;else if(s.status==='ABANDONMENT')ab++;
+    else if(s.status==='ISSUE_FINAL')if2++;else if(s.status==='ISSUE_WRITTEN')iw++;
+    else if(s.status==='VERBAL')vb++;else if(s.status==='OK')ok++;
+    return s;
+  });
+  document.getElementById('sum-metrics').innerHTML=
+    '<div class="metric m-red"><div class="ml">Term Required</div><div class="mv red">'+(tr+ab)+'</div><div class="ms">Immediate</div></div>'+
+    '<div class="metric m-red"><div class="ml">Issue Final Warning</div><div class="mv red">'+if2+'</div><div class="ms">3 business days</div></div>'+
+    '<div class="metric m-red"><div class="ml">Issue Written Warning</div><div class="mv red">'+iw+'</div><div class="ms">3 business days</div></div>'+
+    '<div class="metric m-orange"><div class="ml">Verbal Needed</div><div class="mv orange">'+vb+'</div><div class="ms">3 business days</div></div>'+
+    '<div class="metric m-green"><div class="ml">Currently OK</div><div class="mv green">'+ok+'</div><div class="ms">No action</div></div>'+
+    '<div class="metric m-blue"><div class="ml">Total Associates</div><div class="mv">'+ns.length+'</div></div>'+
+    (user==='rachel'?'<div class="metric" style="cursor:pointer;border:2px dashed var(--border)" onclick="openSetup()"><div class="ml">Data Connection</div><div class="mv" style="font-size:15px;margin-top:3px">'+(url?'Connected':'Setup')+'</div><div class="ms">'+(url?'Click to update':'Click to connect')+'</div></div>':'');
+  var ro=document.getElementById('f-role');
+  if(ro){var cv=ro.value;var op='<option value="all">All roles</option>';Object.keys(roles).sort().forEach(function(r){op+='<option value="'+r+'"'+(cv===r?' selected':'')+'>'+r+'</option>';});ro.innerHTML=op;}
+  var ord={TERM_REQUIRED:0,ABANDONMENT:0,ISSUE_FINAL:1,ISSUE_WRITTEN:2,VERBAL:3,OK:4,TERMED:5,CLEAN_SLATE:6};
+  var fil=rows.filter(function(s){
+    if(sch&&s.name.toLowerCase().indexOf(sch)<0)return false;
+    if(sf!=='all'&&s.status!==sf)return false;
+    if(rf!=='all'&&s.role!==rf)return false;
+    return true;
+  }).sort(function(a,b){return(ord[a.status]||4)-(ord[b.status]||4);});
+  document.getElementById('sum-body').innerHTML=fil.length?fil.map(function(s){
+    var rc=s.status==='TERM_REQUIRED'||s.status==='ABANDONMENT'||s.status==='ISSUE_FINAL'||s.status==='ISSUE_WRITTEN'?'r-red':s.status==='VERBAL'?'r-yellow':s.status==='OK'?'r-green':'';
+    var nc=s.status==='TERM_REQUIRED'?'<span style="color:#7b0000;font-weight:800;font-size:12px">TERMINATION REQUIRED</span>':
+      s.status==='ABANDONMENT'?'<span style="color:#7b0000;font-weight:800;font-size:12px">JOB ABANDONMENT</span>':
+      s.status==='ISSUE_FINAL'?'<span style="color:var(--red);font-weight:700;font-size:12px">Issue Final Warning</span>':
+      s.status==='ISSUE_WRITTEN'?'<span style="color:var(--red);font-weight:700;font-size:12px">Issue Written Warning</span>':
+      s.status==='VERBAL'?'<span style="color:var(--orange);font-weight:700;font-size:12px">'+s.na+'</span>':
+      s.status==='CLEAN_SLATE'?'<span style="color:var(--teal);font-weight:600;font-size:12px">Clean Slate</span>':
+      s.status==='TERMED'?'<span style="color:var(--text2);font-size:12px">Termed</span>':'';
+    var ab='';
+    if(s.status==='VERBAL')ab='<button class="btn btn-orange btn-sm" onclick="qVerbal(\''+s.name+'\')">Log Verbal</button>';
+    else if(s.status==='ISSUE_WRITTEN')ab='<button class="btn btn-red btn-sm" onclick="qCA(\''+s.name+'\',\'Written\')">Log Written CA</button>';
+    else if(s.status==='ISSUE_FINAL')ab='<button class="btn btn-red btn-sm" onclick="qCA(\''+s.name+'\',\'Final\')">Log Final CA</button>';
+    else if(s.status==='TERM_REQUIRED'||s.status==='ABANDONMENT')ab='<button class="btn btn-red btn-sm" onclick="openTerm(\''+s.name+'\')">Terminate</button>';
+    var mb=user==='rachel'&&s.status!=='TERMED'?'<button class="btn btn-ghost btn-sm" style="font-size:11px;margin-left:3px" onclick="openManual(\''+s.name+'\')" title="Admin: manual action">...</button>':'';
+    var stageBadge=s.stage==='final'?'<span class="bdg b-red">On Final</span>':s.stage==='written'?'<span class="bdg b-orange">On Written</span>':s.status==='TERMED'?'<span class="bdg b-gray">Termed</span>':s.status==='CLEAN_SLATE'?'<span class="bdg b-green">Clean Slate</span>':'<span class="bdg b-gray">No CA</span>';
+    var progCell=s.prog?'<span style="font-size:12px;color:'+(s.status==='TERM_REQUIRED'||s.status==='ABANDONMENT'?'#7b0000':s.status==='ISSUE_FINAL'||s.status==='ISSUE_WRITTEN'?'var(--red)':s.status==='VERBAL'?'var(--orange)':'var(--text2)')+'">'+s.prog+'</span>':'';
+    return '<tr class="'+rc+'"><td class="nm">'+s.name+'<br><span style="font-size:10px;color:var(--text2)">'+s.role+'</span></td><td>'+stageBadge+'</td><td>'+progCell+'</td><td class="ct mt">'+(s.lastCA||'')+'</td><td class="ct">'+(s.wCnt>0?'<span class="bdg b-blue">'+s.wCnt+'</span>':'')+'</td><td class="ct">'+(s.fCnt>0?'<span class="bdg b-orange">'+s.fCnt+'</span>':'')+'</td><td class="ct">'+(s.tCnt>0?'<span class="bdg b-red">'+s.tCnt+'</span>':'')+'</td><td>'+nc+'</td><td>'+ab+mb+'</td></tr>';
+  }).join(''):'<tr><td colspan="10"><div class="empty"><div style="font-size:36px">✓</div><p style="margin-top:10px">No associates match</p></div></td></tr>';
+}
+
+function addException(){
+  var n=document.getElementById('e-name').value.trim();
+  var d=document.getElementById('e-date').value;
+  var w=document.getElementById('e-week').value.trim();
+  var dc=document.getElementById('e-dec').value;
+  var nt=document.getElementById('e-notes').value.trim();
+  if(!n||!d){toast('Name and date required','err');return;}
+  if(!user){toast('Select your name first','err');return;}
+  var rec={date:d,name:n,week:w,decision:dc,notes:nt,status:'Active',by:UNAMES[user]||user};
+  exceptions.unshift(rec);save();gsAdd('exceptions',rec);
+  addHist({date:d,name:n,actionType:'Exception',details:dc+(nt?' — '+nt:''),by:rec.by});
+  ['e-name','e-date','e-week','e-notes'].forEach(function(id){document.getElementById(id).value='';});
+  document.getElementById('dates-panel').style.display='none';
+  renderExc();renderSummary();toast('Exception saved','ok');
+}
+function toggleExc(i){
+  exceptions[i].status=exceptions[i].status==='Active'?'Removed':'Active';
+  save();renderExc();renderSummary();
+}
+function renderExc(){
+  dl();
+  var sch=(document.getElementById('s-exc')||{}).value||'';sch=sch.toLowerCase();
+  var fil=exceptions.filter(function(e){return !sch||e.name.toLowerCase().indexOf(sch)>=0;});
+  document.getElementById('exc-body').innerHTML=fil.length?fil.map(function(e,i){
+    return '<tr class="'+(e.status==='Active'?'r-green':'r-red')+'"><td>'+e.date+'</td><td class="nm">'+e.name+'</td><td>'+(e.week||'')+'</td><td><span class="bdg b-blue">'+e.decision+'</span></td><td style="font-size:12px">'+(e.notes||'')+'</td><td><span class="bdg '+(e.status==='Active'?'b-green':'b-red')+'" style="cursor:pointer" onclick="toggleExc('+i+')">'+e.status+'</span></td><td class="mt">'+(e.by||'')+'</td><td>'+(user==='rachel'?'<button class="btn btn-ghost btn-sm" onclick="openDel(\'e\','+i+')">x</button>':'')+'</td></tr>';
+  }).join(''):'<tr><td colspan="8"><div class="empty"><div style="font-size:32px">📋</div><p style="margin-top:8px">No exceptions yet</p></div></td></tr>';
+}
+
+function logCA(){
+  var n=document.getElementById('ca-name').value.trim();
+  var d=document.getElementById('ca-date').value;
+  var lv=document.getElementById('ca-level').value;
+  var r=document.getElementById('ca-reason').value.trim();
+  var dl2=document.getElementById('ca-del').value;
+  var nt=document.getElementById('ca-notes').value.trim();
+  if(!n||!d){toast('Name and date required','err');return;}
+  if(!user){toast('Select your name first','err');return;}
+  var rec={date:d,name:n,level:lv.trim(),reason:r,delivered:dl2,notes:nt,by:UNAMES[user]||user};
+  caLog.unshift(rec);save();gsAdd('calog',rec);
+  addHist({date:d,name:n,actionType:lv+' Warning',details:r+(nt?' — '+nt:''),by:rec.by});
+  ['ca-name','ca-date','ca-reason','ca-notes'].forEach(function(id){document.getElementById(id).value='';});
+  document.getElementById('wd-remind').style.display='block';
+  setTimeout(function(){document.getElementById('wd-remind').style.display='none';},10000);
+  renderCA();renderSummary();toast(lv+' CA logged for '+n,'ok');
+}
+function qCA(n,lv){go('calog');document.getElementById('ca-name').value=n;document.getElementById('ca-date').value=new Date().toISOString().slice(0,10);document.getElementById('ca-level').value=lv;}
+function updateCALevel(n){
+  if(!n||n.length<2)return;
+  var ns=names();var m=ns.find(function(x){return x.toLowerCase()===n.toLowerCase();})||ns.find(function(x){return x.toLowerCase().indexOf(n.toLowerCase())===0;});
+  if(!m)return;
+  var s=getStats(m);
+  var sug=s.status==='ISSUE_FINAL'?'Final':s.status==='TERM_REQUIRED'?'Term':'Written';
+  document.getElementById('ca-level').value=sug;
+  var nt=document.getElementById('ca-note');if(nt){nt.textContent='Recommended: '+sug+' Warning';nt.style.display='block';}
+}
+function renderCA(){
+  dl();
+  var sch=(document.getElementById('s-ca')||{}).value||'';sch=sch.toLowerCase();
+  var fil=caLog.filter(function(c){return !sch||c.name.toLowerCase().indexOf(sch)>=0;});
+  var lb=function(l){return l==='Written'?'<span class="bdg b-blue">Written</span>':l==='Final'?'<span class="bdg b-orange">Final</span>':'<span class="bdg b-red">Term</span>';};
+  document.getElementById('ca-body').innerHTML=fil.length?fil.map(function(c,i){
+    return '<tr><td>'+c.date+'</td><td class="nm">'+c.name+'</td><td>'+lb(c.level)+'</td><td style="font-size:12px">'+(c.reason||'')+'</td><td class="ct"><span class="bdg '+(c.delivered==='Yes'?'b-green':c.delivered==='Pending'?'b-orange':'b-red')+'">'+c.delivered+'</span></td><td class="mt">'+(c.by||'')+'</td><td style="font-size:12px">'+(c.notes||'')+'</td><td>'+(user==='rachel'?'<button class="btn btn-ghost btn-sm" onclick="openDel(\'ca\','+i+')">x</button>':'')+'</td></tr>';
+  }).join(''):'<tr><td colspan="8"><div class="empty"><div style="font-size:32px">📋</div><p style="margin-top:8px">No CAs yet</p></div></td></tr>';
+}
+
+function logVerbal(){
+  var n=document.getElementById('vb-name').value.trim();
+  var d=document.getElementById('vb-date').value;
+  var mg=document.getElementById('vb-mgr').value.trim();
+  var nt=document.getElementById('vb-notes').value.trim();
+  if(!n||!d){toast('Name and date required','err');return;}
+  if(!user){toast('Select your name first','err');return;}
+  var by=UNAMES[user]||user;
+  var rec={date:d,name:n,manager:mg||by,notes:nt,by:by};
+  verbals.unshift(rec);save();gsAdd('verbals',rec);
+  addHist({date:d,name:n,actionType:'Verbal Warning',details:'Delivered by '+(mg||by)+(nt?' — '+nt:''),by:by});
+  ['vb-name','vb-date','vb-mgr','vb-notes'].forEach(function(id){document.getElementById(id).value='';});
+  renderVerbals();renderSummary();toast('Verbal logged for '+n,'ok');
+}
+function qVerbal(n){go('verbals');document.getElementById('vb-name').value=n;document.getElementById('vb-date').value=new Date().toISOString().slice(0,10);document.getElementById('vb-mgr').value=UNAMES[user]||'';}
+function renderVerbals(){
+  dl();
+  var sch=(document.getElementById('s-vb')||{}).value||'';sch=sch.toLowerCase();
+  var fil=verbals.filter(function(v){return !sch||v.name.toLowerCase().indexOf(sch)>=0;});
+  document.getElementById('vb-body').innerHTML=fil.length?fil.map(function(v,i){
+    return '<tr><td>'+v.date+'</td><td class="nm">'+v.name+'</td><td>'+(v.manager||'')+'</td><td class="mt">'+(v.by||'')+'</td><td style="font-size:12px">'+(v.notes||'')+'</td><td>'+(user==='rachel'?'<button class="btn btn-ghost btn-sm" onclick="openDel(\'vb\','+i+')">x</button>':'')+'</td></tr>';
+  }).join(''):'<tr><td colspan="6"><div class="empty"><div style="font-size:32px">💬</div><p style="margin-top:8px">No verbals yet</p></div></td></tr>';
+}
+
+function renderWeekly(){
+  var sch=(document.getElementById('s-wk')||{}).value||'';sch=sch.toLowerCase();
+  var fil=callouts.filter(function(c){return !sch||c.name.toLowerCase().indexOf(sch)>=0;}).map(function(c,i){return Object.assign({},c,{_i:callouts.indexOf(c)});}).sort(function(a,b){return b.date.localeCompare(a.date);});
+  document.getElementById('wk-count').textContent=callouts.length+' total records';
+  document.getElementById('wk-body').innerHTML=fil.map(function(c){
+    return '<tr class="'+(c.type==='No Show No Call'?'r-red':'')+'"><td>'+(c.date?c.date.slice(0,10):'')+'</td><td class="nm">'+c.name+'</td><td><span class="rl">'+(c.role||'')+'</span></td><td><span class="bdg '+(c.type==='No Show No Call'?'b-red':'b-orange')+'">'+c.type+'</span></td><td>'+(c.week||'')+'</td><td><button class="btn btn-ghost btn-sm" style="color:var(--red);border-color:var(--red)" onclick="delCall('+c._i+')">Del</button></td></tr>';
+  }).join('');
+}
+function delCall(i){var r=callouts[i];if(r&&r.id)gsDel('callouts',r.id);callouts.splice(i,1);save();renderWeekly();renderSummary();toast('Deleted','ok');}
+async function clearAll(){
+  if(!confirm('Clear ALL data? Cannot be undone.'))return;
+  callouts=[];exceptions=[];caLog=[];verbals=[];hist=[];save();
+  if(url){setSS('syn');await gsr('clearAll');setSS('ok');}
+  renderAll();toast('Cleared','ok');
+}
+
+function ttc(s){return s.replace(/[A-Za-z][A-Za-z]*/g,function(t){return t.charAt(0).toUpperCase()+t.slice(1).toLowerCase();});}
+
+function handleUpload(ev){
+  var file=ev.target.files[0];if(!file)return;
+  var isCSV=file.name.toLowerCase().indexOf('.csv')>=0;
+  function proc(rows){
+    var VALID=['called in','no show no call'];var nc=0;var nn={};
+    rows.forEach(function(row){
+      if(!row.name||!row.reason)return;
+      if(VALID.indexOf(row.reason.toLowerCase().trim())<0)return;
+      var n=ttc(row.name.trim());var d=row.date;
+      if(!d||d.length<8)return;
+      var w=row.week||weekRange(d);
+      var er=callouts.find(function(c){return c.name.toLowerCase()===n.toLowerCase();});
+      var r=row.role||(er?er.role:'')||'';
+      var t=ttc(row.reason.trim());
+      if(!callouts.some(function(c){return c.name.toLowerCase()===n.toLowerCase()&&c.date===d;})){
+        var rec={name:n,date:d,type:t,role:r,week:w};callouts.push(rec);nc++;nn[n]=1;gsAdd('callouts',rec);
+      }
+    });
+    save();
+    document.getElementById('up-result').style.display='block';
+    document.getElementById('up-result').innerHTML='<div style="background:var(--green-lt);color:var(--green);padding:11px 14px;border-radius:7px;font-size:13px"><strong>'+nc+' records imported</strong>'+(Object.keys(nn).length>0?'<br>New: '+Object.keys(nn).join(', '):'')+'</div>';
+    renderWeekly();renderSummary();toast(nc+' imported','ok');
+  }
+  if(isCSV){
+    var rd=new FileReader();
+    rd.onload=function(e){
+      try{
+        var lines=e.target.result.split('\n').filter(function(l){return l.trim();});
+        if(!lines.length){toast('Empty file','err');return;}
+        var delim0=lines[0].indexOf('\t')>=0?'\t':',';var hds=lines[0].split(delim0).map(function(h){return h.trim().toLowerCase().replace(/"/g,'');});
+        var di=hds.findIndex(function(h){return h.indexOf('date')>=0;});
+        var ni=hds.findIndex(function(h){return h.indexOf('name')>=0;});
+        var ri=hds.findIndex(function(h){return h.indexOf('reason')>=0||h.indexOf('show')>=0||h.indexOf('absence')>=0||h.indexOf('type')>=0||h.indexOf('no show')>=0;});
+        var rli=hds.findIndex(function(h){return h==='role'||h==='worker role'||h.indexOf('role')>=0;});
+        var wi=hds.findIndex(function(h){return h.indexOf('week')>=0;});
+        if(di<0||ni<0||ri<0){toast('Cannot detect columns','err');return;}
+        var rows=[];
+        for(var i=1;i<lines.length;i++){
+          var delim=lines[0].indexOf('\t')>=0?'\t':',';var cols=lines[i].split(delim).map(function(c){return c.trim().replace(/^"|"$/g,'');});
+          var rd2=cols[di]||'';var nm=cols[ni]||'';var rs=cols[ri]||'';
+          if(!nm||!rd2)continue;
+          var ds='';
+          if(rd2.indexOf('/')>=0){var pts=rd2.split('/');ds=pts[2].padStart(4,'0')+'-'+pts[0].padStart(2,'0')+'-'+pts[1].padStart(2,'0');}
+          else ds=rd2.slice(0,10);
+          if(ds)rows.push({date:ds,name:nm,reason:rs,role:rli>=0?cols[rli]||'':'',week:wi>=0?cols[wi]||'':''});
+        }
+        proc(rows);
+      }catch(err){toast('CSV error: '+err.message,'err');}
+    };
+    rd.readAsText(file);
+  }else{
+    var rd2=new FileReader();
+    rd2.onload=function(e){
+      try{
+        var wb=window.XLSX.read(new Uint8Array(e.target.result),{type:'array',cellDates:true});
+        var rows=[];
+        wb.SheetNames.forEach(function(sn){
+          var data=window.XLSX.utils.sheet_to_json(wb.Sheets[sn],{header:1,raw:false});
+          data.forEach(function(row,i){
+            if(i===0)return;
+            var rDate=row[0]||'';var nm=row[1]||'';var at=row[2]||'';var rl=String(row[3]||'');var wk=String(row[4]||'');var rs=at||row[5]||'';
+            var dp=new Date(rDate);var ds=!isNaN(dp)?dp.toISOString().slice(0,10):String(rDate).slice(0,10);
+            if(nm&&ds)rows.push({date:ds,name:String(nm),reason:String(rs),role:rl,week:wk});
+          });
+        });
+        proc(rows);
+      }catch(err){toast('File error: '+err.message,'err');}
+    };
+    rd2.readAsArrayBuffer(file);
+  }
+  ev.target.value='';
+}
+
+function renderDOO(){
+  // Pending approvals — Bryant only
+  var pendingSection=document.getElementById('doo-pending-section');
+  var pendingBanner=document.getElementById('doo-pending-banner');
+  var pendingBody=document.getElementById('doo-pending-body');
+  if(user==='bryant'&&pendingTerms&&pendingTerms.length>0){
+    if(pendingSection){pendingSection.style.display='block';pendingSection.style.visibility='visible';}
+    if(pendingBanner){pendingBanner.style.display='block';pendingBanner.textContent='You have '+pendingTerms.length+' termination'+(pendingTerms.length>1?'s':'')+' pending your approval.';}
+    if(pendingBody){
+      pendingBody.innerHTML=pendingTerms.map(function(p){
+        return '<tr class="r-red">'
+          +'<td class="nm">'+p.name+'</td>'
+          +'<td style="font-size:12px">'+p.reason+'</td>'
+          +'<td class="mt">'+p.requestedBy+'</td>'
+          +'<td class="mt">'+p.requestDate+'</td>'
+          +'<td>'
+          +'<button class="btn btn-red btn-sm" style="margin-right:6px" onclick="approveTerm('+p.id+')">Approve</button>'
+          +'<button class="btn btn-ghost btn-sm" onclick="denyTerm('+p.id+')">Deny</button>'
+          +'</td></tr>';
+      }).join('');
+    }
+  }else{
+    if(pendingSection)pendingSection.style.display='none';
+    if(pendingBanner)pendingBanner.style.display='none';
+  }
+  var ns=names();var stats=ns.map(function(n){return getStats(n);});
+  var tr=stats.filter(function(s){return s.status==='TERM_REQUIRED'||s.status==='ABANDONMENT';});
+  var ca=stats.filter(function(s){return s.status==='ISSUE_FINAL'||s.status==='ISSUE_WRITTEN';});
+  var vb=stats.filter(function(s){return s.status==='VERBAL';});
+  var ok=stats.filter(function(s){return s.status==='OK';}).length;
+  document.getElementById('doo-metrics').innerHTML=
+    '<div class="metric m-red"><div class="ml">Term Required</div><div class="mv red">'+tr.length+'</div></div>'+
+    '<div class="metric m-red"><div class="ml">Needs CA</div><div class="mv red">'+ca.length+'</div></div>'+
+    '<div class="metric m-orange"><div class="ml">Verbal Needed</div><div class="mv orange">'+vb.length+'</div></div>'+
+    '<div class="metric m-green"><div class="ml">Currently OK</div><div class="mv green">'+ok+'</div></div>'+
+    '<div class="metric m-blue"><div class="ml">Total</div><div class="mv">'+ns.length+'</div></div>'+
+    '<div class="metric"><div class="ml">Written CAs</div><div class="mv">'+caLog.filter(function(c){return c.level==='Written';}).length+'</div></div>'+
+    '<div class="metric"><div class="ml">Final CAs</div><div class="mv">'+caLog.filter(function(c){return c.level==='Final';}).length+'</div></div>'+
+    '<div class="metric m-red"><div class="ml">Terminations</div><div class="mv red">'+caLog.filter(function(c){return c.level==='Term';}).length+'</div></div>';
+  document.getElementById('doo-term').innerHTML=tr.length?tr.map(function(s){return '<tr class="r-red"><td class="nm">'+s.name+'</td><td><span class="rl">'+s.role+'</span></td><td><span class="bdg b-red">'+(s.status==='ABANDONMENT'?'Job Abandonment':'Term Required')+'</span></td><td style="font-size:12px;font-weight:600;color:var(--red)">Process immediately</td></tr>';}).join(''):'<tr><td colspan="4"><div class="empty"><div style="font-size:28px">✓</div><p style="margin-top:6px">None</p></div></td></tr>';
+  document.getElementById('doo-ca').innerHTML=ca.length?ca.map(function(s){return '<tr class="r-red"><td class="nm">'+s.name+'</td><td><span class="rl">'+s.role+'</span></td><td class="ct" style="font-weight:600">'+s.ac+'</td><td><span class="bdg b-red">'+(s.status==='ISSUE_FINAL'?'Final Warning':'Written Warning')+'</span></td><td style="font-size:12px;color:var(--text2)">Within 3 business days</td></tr>';}).join(''):'<tr><td colspan="5"><div class="empty"><div style="font-size:28px">✓</div><p style="margin-top:6px">None</p></div></td></tr>';
+  document.getElementById('doo-vb').innerHTML=vb.length?vb.map(function(s){var ve=verbals.filter(function(v){return v.name.toLowerCase()===s.name.toLowerCase();}).sort(function(a,b){return b.date.localeCompare(a.date);})[0];var vg=ve?'<span style="color:var(--teal);font-weight:600">Given '+ve.date+'</span>':'<span style="color:var(--red);font-weight:600">Not yet</span>';return '<tr class="r-yellow"><td class="nm">'+s.name+'</td><td><span class="rl">'+s.role+'</span></td><td class="ct" style="font-weight:600">'+s.ac+'</td><td>'+vg+'</td><td style="font-size:12px;color:var(--orange);font-weight:600">Within 3 business days</td></tr>';}).join(''):'<tr><td colspan="5"><div class="empty"><div style="font-size:28px">✓</div><p style="margin-top:6px">None</p></div></td></tr>';
+  document.getElementById('doo-pipe').innerHTML=['Written','Final','Term'].map(function(l){var is=caLog.filter(function(c){return c.level===l;});var ns2=is.map(function(c){return c.name;}).filter(function(n,i,a){return a.indexOf(n)===i;});var cl=l==='Written'?'b-blue':l==='Final'?'b-orange':'b-red';return '<tr><td><span class="bdg '+cl+'">'+l+'</span></td><td class="ct">'+is.length+'</td><td style="font-size:12px;color:var(--text2)">'+ns2.slice(0,4).join(', ')+(ns2.length>4?' +'+(ns2.length-4)+' more':'')+'</td></tr>';}).join('');
+  var roles={};stats.forEach(function(s){if(!s.role||s.role==='role')return;if(!roles[s.role])roles[s.role]={c:0,t:0,f:0};roles[s.role].c++;roles[s.role].t+=s.at;if(s.status==='ISSUE_WRITTEN'||s.status==='ISSUE_FINAL'||s.status==='TERM_REQUIRED')roles[s.role].f++;});
+  document.getElementById('doo-role').innerHTML=Object.keys(roles).sort(function(a,b){return roles[b].t-roles[a].t;}).map(function(r){var d=roles[r];return '<tr><td><span class="bdg b-navy">'+r+'</span></td><td class="ct">'+d.c+'</td><td class="ct">'+d.t+'</td><td class="ct">'+(d.f>0?'<span style="color:var(--red);font-weight:600">'+d.f+'</span>':'0')+'</td></tr>';}).join('');
+}
+
+function addHist(e){
+  var rec={date:e.date,name:e.name,actionType:e.actionType,details:e.details||'',by:e.by||user};
+  hist.unshift(rec);save();gsAdd('history',rec);
+}
+function renderHistory(){
+  var sch=(document.getElementById('s-his')||{}).value||'';sch=sch.toLowerCase();
+  var tf=(document.getElementById('f-his-type')||{}).value||'all';
+  var mf2=(document.getElementById('f-his-mgr')||{}).value||'all';
+  var ff=(document.getElementById('f-his-from')||{}).value||'';
+  var ft=(document.getElementById('f-his-to')||{}).value||'';
+  var mgrs={};hist.forEach(function(h){if(h.by)mgrs[h.by]=1;});
+  var msel=document.getElementById('f-his-mgr');
+  if(msel){var cv=msel.value;var op='<option value="all">All managers</option>';Object.keys(mgrs).sort().forEach(function(m){op+='<option value="'+m+'"'+(cv===m?' selected':'')+'>'+m+'</option>';});msel.innerHTML=op;}
+  var fil=hist.filter(function(h){
+    if(sch&&h.name&&h.name.toLowerCase().indexOf(sch)<0)return false;
+    if(tf!=='all'&&h.actionType!==tf)return false;
+    if(mf2!=='all'&&h.by!==mf2)return false;
+    if(ff&&h.date&&h.date<ff)return false;
+    if(ft&&h.date&&h.date>ft)return false;
+    return true;
+  });
+  var tb=function(t){
+    if(t==='Verbal Warning')return '<span class="bdg b-orange">Verbal</span>';
+    if(t==='Written Warning')return '<span class="bdg b-blue">Written CA</span>';
+    if(t==='Final Warning')return '<span class="bdg b-red">Final CA</span>';
+    if(t==='Exception')return '<span class="bdg b-teal">Exception</span>';
+    if(t==='Termination'||t==='Attendance Policy Violation')return '<span class="bdg b-red">Termination</span>';
+    if(t&&t.indexOf('Resignation')>=0)return '<span class="bdg b-gray">Resignation</span>';
+    if(t==='Clean Slate')return '<span class="bdg b-green">Clean Slate</span>';
+    return '<span class="bdg b-gray">'+(t||'')+'</span>';
+  };
+  document.getElementById('his-body').innerHTML=fil.length?fil.map(function(h,i){
+    var rev=user==='rachel'&&(h.actionType==='Termination'||h.actionType==='Attendance Policy Violation'||(h.actionType&&h.actionType.indexOf('Resignation')>=0));
+    return '<tr><td class="mt">'+(h.date||'')+'</td><td class="nm">'+(h.name||'')+'</td><td>'+tb(h.actionType||'')+'</td><td style="font-size:12px">'+(h.details||'')+'</td><td class="mt">'+(h.by||'')+'</td><td>'+(rev?'<button class="btn btn-ghost btn-sm" style="color:var(--teal);border-color:var(--teal);font-size:11px" onclick="revTerm('+i+',\''+h.name+'\')">Reverse</button>':'')+'</td></tr>';
+  }).join(''):'<tr><td colspan="6"><div class="empty"><div style="font-size:32px">📁</div><p style="margin-top:8px">No history yet</p></div></td></tr>';
+}
+
+function openTerm(n){
+  pTerm=n;
+  document.getElementById('m-term-msg').textContent='Submit termination request for '+n+'? This will be sent to Bryant Duncan (DOO) for approval before taking effect.';
+  document.getElementById('term-reason').value='Attendance Policy Violation';
+  document.getElementById('term-notes').value='';
+  document.getElementById('m-term').style.display='flex';
+}
+function openManual(n){pManual=n;document.getElementById('m-manual-msg').textContent='Manual action for '+n+'.';document.getElementById('manual-notes').value='';document.getElementById('m-manual').style.display='flex';}
+async function doTerminate(){
+  if(!pTerm)return;
+  var n=pTerm;var r=document.getElementById('term-reason').value;var nt=document.getElementById('term-notes').value;
+  var d=new Date().toISOString().slice(0,10);var by=UNAMES[user]||user;var fr=nt?r+' — '+nt:r;
+  // Submit for DOO approval instead of terminating immediately
+  var req={id:Date.now(),name:n,reason:fr,requestedBy:by,requestDate:d,status:'Pending'};
+  pendingTerms.push(req);save();
+  addHist({date:d,name:n,actionType:'Termination Requested',details:'Pending DOO approval — '+fr,by:by});
+  closeM('m-term');renderSummary();renderHistory();
+  toast(n+' termination submitted to Bryant for approval','ok');pTerm=null;
+}
+
+function checkPendingApprovals(){
+  if(pendingTerms&&pendingTerms.length>0){
+    var banner=document.getElementById('doo-pending-banner');
+    if(banner){banner.style.display='block';banner.textContent='You have '+pendingTerms.length+' termination'+(pendingTerms.length>1?'s':'')+' pending your approval.';}
+    var section=document.getElementById('doo-pending-section');
+    if(section)section.style.display='block';
+    var body=document.getElementById('doo-pending-body');
+    if(body){
+      body.innerHTML=pendingTerms.map(function(p){
+        return '<tr class="r-red">'
+          +'<td class="nm">'+p.name+'</td>'
+          +'<td style="font-size:12px">'+p.reason+'</td>'
+          +'<td class="mt">'+p.requestedBy+'</td>'
+          +'<td class="mt">'+p.requestDate+'</td>'
+          +'<td>'
+          +'<button class="btn btn-red btn-sm" style="margin-right:6px" onclick="approveTerm('+p.id+')">Approve</button>'
+          +'<button class="btn btn-ghost btn-sm" onclick="denyTerm('+p.id+')">Deny</button>'
+          +'</td></tr>';
+      }).join('');
+    }
+  }
+}
+
+async function approveTerm(id){
+  var req=pendingTerms.find(function(p){return p.id===id;});
+  if(!req)return;
+  var d=new Date().toISOString().slice(0,10);
+  // Actually terminate
+  addHist({date:d,name:req.name,actionType:'Termination',details:req.reason+' — Approved by Bryant Duncan',by:'Bryant Duncan'});
+  callouts=callouts.filter(function(c){return c.name.toLowerCase()!==req.name.toLowerCase();});
+  caLog=caLog.filter(function(c){return c.name.toLowerCase()!==req.name.toLowerCase();});
+  verbals=verbals.filter(function(v){return v.name.toLowerCase()!==req.name.toLowerCase();});
+  exceptions=exceptions.filter(function(e){return e.name.toLowerCase()!==req.name.toLowerCase();});
+  pendingTerms=pendingTerms.filter(function(p){return p.id!==id;});
+  save();if(synced)await gsr('terminate',{name:req.name,date:d,reason:req.reason,by:'Bryant Duncan'});
+  renderSummary();renderHistory();renderDOO();
+  toast(req.name+' termination approved and processed','ok');
+}
+
+async function denyTerm(id){
+  var req=pendingTerms.find(function(p){return p.id===id;});
+  if(!req)return;
+  var d=new Date().toISOString().slice(0,10);
+  addHist({date:d,name:req.name,actionType:'Termination Denied',details:'Denied by Bryant Duncan — '+req.reason,by:'Bryant Duncan'});
+  pendingTerms=pendingTerms.filter(function(p){return p.id!==id;});
+  save();renderDOO();renderHistory();
+  toast(req.name+' termination request denied','ok');
+}
+async function doManual(){
+  if(!pManual)return;
+  var n=pManual;var t=document.getElementById('manual-type').value;var nt=document.getElementById('manual-notes').value;
+  var d=new Date().toISOString().slice(0,10);var by=UNAMES[user]||user;var fr=nt?t+' — '+nt:t;
+  addHist({date:d,name:n,actionType:t,details:fr,by:by});
+  callouts=callouts.filter(function(c){return c.name.toLowerCase()!==n.toLowerCase();});
+  caLog=caLog.filter(function(c){return c.name.toLowerCase()!==n.toLowerCase();});
+  verbals=verbals.filter(function(v){return v.name.toLowerCase()!==n.toLowerCase();});
+  exceptions=exceptions.filter(function(e){return e.name.toLowerCase()!==n.toLowerCase();});
+  save();if(synced)await gsr('terminate',{name:n,date:d,reason:fr,by:by});
+  closeM('m-manual');renderSummary();renderHistory();toast(n+' processed','ok');pManual=null;
+}
+function revTerm(i,n){
+  if(!confirm('Reverse action for '+n+'?'))return;
+  hist.splice(i,1);save();renderHistory();renderSummary();toast(n+' action reversed','ok');
+}
+
+function dl(){
+  var op=names().map(function(n){return '<option value="'+n+'">';}).join('');
+  ['al1','al2','al3'].forEach(function(id){var el=document.getElementById(id);if(el)el.innerHTML=op;});
+}
+function showDates(nv){
+  var panel=document.getElementById('dates-panel');var list=document.getElementById('dates-list');
+  if(!nv||nv.length<2){panel.style.display='none';return;}
+  var ns=names();var m=ns.find(function(n){return n.toLowerCase()===nv.toLowerCase();})||ns.find(function(n){return n.toLowerCase().indexOf(nv.toLowerCase())===0;});
+  if(!m){panel.style.display='none';return;}
+  var exc={};exceptions.filter(function(e){return e.name.toLowerCase()===m.toLowerCase()&&e.status==='Active';}).forEach(function(e){exc[e.date]=1;});
+  var ds=callouts.filter(function(c){return c.name.toLowerCase()===m.toLowerCase();}).sort(function(a,b){return b.date.localeCompare(a.date);});
+  if(!ds.length){panel.style.display='none';return;}
+  list.innerHTML=ds.map(function(c){
+    var ex=exc[c.date];var tl=c.type==='No Show No Call'?'NCNS':'Called In';
+    return ex?'<span style="background:#D6EFE1;color:#1D6A3A;padding:4px 10px;border-radius:20px;font-size:12px;font-weight:600;border:1px solid #1D6A3A">'+c.date+' '+tl+' (excused)</span>'
+      :'<span onclick="selDate(\''+c.date+'\',\''+c.week+'\')" style="background:#FDEBD0;color:#A04000;padding:4px 10px;border-radius:20px;font-size:12px;font-weight:600;border:1px solid #D35400;cursor:pointer">'+c.date+' '+tl+'</span>';
+  }).join('');
+  panel.style.display='block';
+}
+function selDate(d,w){document.getElementById('e-date').value=d;calcWeek(d,'e-week');}
+function openDel(t,i){
+  pDel={t:t,i:i};
+  document.getElementById('m-del-msg').textContent='Delete this '+(t==='e'?'exception':t==='ca'?'CA entry':'verbal')+'? Cannot be undone.';
+  document.getElementById('del-btn').onclick=function(){
+    var arr=pDel.t==='e'?exceptions:pDel.t==='ca'?caLog:verbals;
+    var item=arr[pDel.i];
+    if(item&&item.id)gsDel(pDel.t==='e'?'exceptions':pDel.t==='ca'?'calog':'verbals',item.id);
+    arr.splice(pDel.i,1);save();renderAll();closeM('m-del');toast('Deleted','ok');
+  };
+  document.getElementById('m-del').style.display='flex';
+}
+function closeM(id){document.getElementById(id).style.display='none';}
+function toast(msg,type){
+  var t=document.ge
+  var t=document.getElementById('toast');t.textContent=msg;t.className='toast'+(type?' '+type:'');
+  setTimeout(function(){t.classList.add('show');},10);setTimeout(function(){t.classList.remove('show');},3500);
+}
+function renderAll(){renderSummary();renderExc();renderCA();renderVerbals();renderHistory();dl();}
+
+function toXL(data,hdrs,sn,fn){var X=window.XLSX;if(!X){toast('Not ready','err');return;}var ws=X.utils.aoa_to_sheet([hdrs].concat(data));var wb=X.utils.book_new();X.utils.book_append_sheet(wb,ws,sn);X.writeFile(wb,fn);toast('Downloaded','ok');}
+function toPDF(title,html){var w=window.open('','_blank');w.document.write('<html><head><title>'+title+'</title><style>body{font-family:Arial;font-size:12px;padding:18px}table{width:100%;border-collapse:collapse;margin-top:14px}th{background:#0f1e2e;color:#fff;padding:8px;text-align:left;font-size:11px}td{padding:6px 8px;border-bottom:1px solid #dde3e8;font-size:11px}@media print{button{display:none}}</style></head><body><h2>'+title+'</h2>'+html+'<br><button onclick="window.print()">Print/PDF</button></body></html>');w.document.close();}
+function expSumXL(){var ns=names();toXL(ns.map(function(n){var s=getStats(n);return[s.name,s.role,s.ac,s.at,s.lastCA||'',s.wCnt,s.fCnt,s.tCnt,s.status,s.na||''];}),['Associate','Role','Active','All Time','Last CA','W','F','T','Status','Next Action'],'Summary','Site2555_Summary.xlsx');}
+function expSumPDF(){var ns=names();toPDF('Summary','<table><thead><tr><th>Associate</th><th>Role</th><th>Active</th><th>All Time</th><th>Next Action</th></tr></thead><tbody>'+ns.map(function(n){var s=getStats(n);return'<tr><td>'+s.name+'</td><td>'+s.role+'</td><td>'+s.ac+'</td><td>'+s.at+'</td><td>'+(s.na||s.status)+'</td></tr>';}).join('')+'</tbody></table>');}
+function expExcXL(){toXL(exceptions.map(function(e){return[e.date,e.name,e.week||'',e.decision,e.notes||'',e.status,e.by||''];}),['Date','Associate','Week','Decision','Notes','Status','By'],'Exceptions','Site2555_Exceptions.xlsx');}
+function expExcPDF(){toPDF('Exceptions','<table><thead><tr><th>Date</th><th>Associate</th><th>Decision</th><th>Status</th></tr></thead><tbody>'+exceptions.map(function(e){return'<tr><td>'+e.date+'</td><td>'+e.name+'</td><td>'+e.decision+'</td><td>'+e.status+'</td></tr>';}).join('')+'</tbody></table>');}
+function expCAXL(){toXL(caLog.map(function(c){return[c.date,c.name,c.level,c.reason||'',c.delivered,c.by||'',c.notes||''];}),['Date','Associate','Level','Reason','Delivered','By','Notes'],'CA Log','Site2555_CALog.xlsx');}
+function expCAPDF(){toPDF('CA Log','<table><thead><tr><th>Date</th><th>Associate</th><th>Level</th><th>Reason</th></tr></thead><tbody>'+caLog.map(function(c){return'<tr><td>'+c.date+'</td><td>'+c.name+'</td><td>'+c.level+'</td><td>'+(c.reason||'')+'</td></tr>';}).join('')+'</tbody></table>');}
+function expVbXL(){toXL(verbals.map(function(v){return[v.date,v.name,v.manager||'',v.by||'',v.notes||''];}),['Date','Associate','Delivered By','Logged By','Notes'],'Verbals','Site2555_Verbals.xlsx');}
+function expVbPDF(){toPDF('Verbal Log','<table><thead><tr><th>Date</th><th>Associate</th><th>By</th><th>Notes</th></tr></thead><tbody>'+verbals.map(function(v){return'<tr><td>'+v.date+'</td><td>'+v.name+'</td><td>'+(v.manager||'')+'</td><td>'+(v.notes||'')+'</td></tr>';}).join('')+'</tbody></table>');}
+function expWkXL(){toXL(callouts.slice().sort(function(a,b){return b.date.localeCompare(a.date);}).map(function(c){return[c.date,c.name,c.role||'',c.type,c.week||''];}),['Date','Associate','Role','Type','Week'],'Call-Outs','Site2555_CallOuts.xlsx');}
+function expHisXL(){toXL(hist.map(function(h){return[h.date||'',h.name||'',h.actionType||'',h.details||'',h.by||''];}),['Date','Associate','Action','Details','By'],'History','Site2555_History.xlsx');}
+function expHisPDF(){toPDF('Audit Trail','<table><thead><tr><th>Date</th><th>Associate</th><th>Action</th><th>Details</th><th>By</th></tr></thead><tbody>'+hist.map(function(h){return'<tr><td>'+(h.date||'')+'</td><td>'+(h.name||'')+'</td><td>'+(h.actionType||'')+'</td><td>'+(h.details||'')+'</td><td>'+(h.by||'')+'</td></tr>';}).join('')+'</tbody></table>');}
+function expDOOXL(){var ns=names();toXL(ns.map(function(n){var s=getStats(n);return[s.name,s.role,s.ac,s.at,s.status,s.na||'',s.wCnt,s.fCnt,s.tCnt];}),['Associate','Role','Active','All Time','Status','Next Action','W','F','T'],'DOO','Site2555_DOO.xlsx');}
+function expDOOPDF(){var ns=names();toPDF('DOO View','<table><thead><tr><th>Associate</th><th>Role</th><th>Active</th><th>Next Action</th></tr></thead><tbody>'+ns.map(function(n){var s=getStats(n);return'<tr><td>'+s.name+'</td><td>'+s.role+'</td><td>'+s.ac+'</td><td>'+(s.na||s.status)+'</td></tr>';}).join('')+'</tbody></table>');}
+
+load();
+var td=new Date().toISOString().slice(0,10);
+document.getElementById('e-date').value=td;
+document.getElementById('ca-date').value=td;
+document.getElementById('vb-date').value=td;
+</script>
+</body>
+</html>
